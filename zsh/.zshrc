@@ -98,7 +98,7 @@ source $ZSH/oh-my-zsh.sh
 # - $ZSH_CUSTOM/aliases.zsh
 # - $ZSH_CUSTOM/macos.zsh
 # For a full list of active aliases, run `alias`.
-#
+
 alias update='yay -Syu --noconfirm'
 alias vim="nvim"
 alias ls='ls --color=auto'
