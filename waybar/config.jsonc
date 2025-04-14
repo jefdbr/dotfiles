@@ -21,10 +21,7 @@
     "battery",
     "pulseaudio"
   ],
-  "hyprland/workspaces": {
-    "format": "{icon}",
-    "on-click": "hyprctl dispatch workspace {id}"
-  },
+  "hyprland/workspaces": {},
   "hyprland/window": {
     "separate-outputs": true
   },
