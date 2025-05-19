@@ -16,6 +16,7 @@
   ],
   "modules-right": [
     "tray",
+    "custom/razer-battery",
     "cpu",
     "memory",
     "battery",
@@ -94,5 +95,12 @@
       ""
     ],
     "max-length": 25
+  },
+  "custom/razer-battery": {
+    "exec": "~/.config/waybar/scripts/razer_mouse_battery.sh",
+    "interval": 60,
+    "return-type": "json",
+    "format": "{}",
+    "tooltip": true
   }
 }
