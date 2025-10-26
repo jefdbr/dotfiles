@@ -112,6 +112,6 @@ alias dwengo_db_run='echo -n "Postgres password: " && read -s password && echo \
             -e POSTGRES_DB=dwengo_db \
             -p 5432:5432 -d postgres'
 alias dwengo_db_rm='sudo docker stop db && sudo docker rm db'
+alias weather="curl wttr.in"
 
 # Created by `pipx` on 2025-04-24 09:11:28
-export PATH="$PATH:/home/jeffrey/.local/bin"
