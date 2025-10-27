@@ -1,163 +1,71 @@
+/* Global font */
 * {
-    /* `otf-font-awesome` is required to be installed for icons */
     font-family: "JetBrainsMono Nerd Font", monospace;
     font-size: 16px;
 }
 
+/* Waybar window styling */
 window#waybar {
-    background-color: rgba(55, 55, 55, 1.0);
-    border-bottom: 3px solid rgba(100, 114, 125, 1.0);
-    color: #ffffff;
-    transition-property: background-color;
-    transition-duration: .5s;
+    background-color: black;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+    color: #f5f5f5;
+    transition: background-color 0.4s, color 0.4s, border-color 0.4s;
 }
 
-window#waybar.hidden {
-    opacity: 0.2;
-}
+window#waybar.hidden { opacity: 0.2; }
+window#waybar.termite { background-color: #3F3F3F; }
+window#waybar.chromium { background-color: #000; border: none; }
 
-window#waybar.termite {
-    background-color: #3F3F3F;
-}
-
-window#waybar.chromium {
-    background-color: #000000;
-    border: none;
-}
-
-/* General button styling */
+/* Buttons */
 button {
     box-shadow: inset 0 -3px transparent;
     border: none;
     border-radius: 0;
 }
+button:hover { background: inherit; box-shadow: inset 0 -3px #ffffff; }
 
-/* Fix Waybar's hover effect */
-button:hover {
-    background: inherit;
-    box-shadow: inset 0 -3px #ffffff;
-}
-
-/* Workspaces: General styling */
+/* Workspaces */
 #workspaces button {
     padding: 2px 6px;
-    background-color: transparent;
+    background-color: rgba(255, 255, 255, 0.15);
     color: #ffffff;
-    transition: background 0.2s ease-in-out;
 }
+#workspaces button:hover { background: black; }
+#workspaces button.focused { background-color: #64727D; box-shadow: inset 0 -3px #ffffff; }
+#workspaces button.urgent { background-color: #eb4d4b; animation: urgent-pulse 1s infinite alternate; }
+#workspaces button.active { color: #16e0dd; text-shadow: 0 0 2px rgba(0,0,0,0.5); border: none; }
 
-/* Workspaces: Hover effect */
-#workspaces button:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-/* Workspaces: Focused (Active) */
-#workspaces button.focused {
-    background-color: #64727D;
-    box-shadow: inset 0 -3px #ffffff;
-}
-
-/* Workspaces: Urgent (High priority window) */
-#workspaces button.urgent {
-    background-color: #eb4d4b;
-    animation: urgent-pulse 1s infinite alternate;
-}
-
-#workspaces button.active {
-    color: #16e0dd;
-    border: none;
-    text-shadow: 0px 0px 2px rgba(0, 0, 0, .5);
-}
-
-/* Optional: Pulsing animation for urgent workspaces */
 @keyframes urgent-pulse {
     from { background-color: #eb4d4b; }
     to { background-color: #ff7675; }
 }
 
-#mode {
-    background-color: #64727D;
-    box-shadow: inset 0 -3px #ffffff;
-}
+/* Mode indicator */
+#mode { background-color: #64727D; box-shadow: inset 0 -3px #ffffff; }
 
-#clock,
-#battery,
-#cpu,
-#memory,
-#disk,
-#temperature,
-#backlight,
-#network,
-#pulseaudio,
-#wireplumber,
-#custom-media,
-#tray,
-#mode,
-#idle_inhibitor,
-#scratchpad,
-#power-profiles-daemon,
-#mpd {
+/* Modules styling */
+#clock, #battery, #cpu, #memory, #pulseaudio, #tray, #mode {
     padding: 0 10px;
     color: #ffffff;
 }
 
+/* Margins */
+#window, #workspaces { margin: 0 4px; }
+.modules-left { margin-left: 8px; }
+.modules-right { margin-right: 8px; }
 
-#window,
-#workspaces {
-    margin: 0 4px;
-}
+/* Tray hover */
+#tray > widget { transition: all 0.25s cubic-bezier(0.165,0.84,0.44,1); }
+#tray > widget:hover { background: @bg_hover; }
+#tray > .passive { border-bottom: none; }
+#tray > .active { border-bottom: 3px solid white; }
+#tray > .needs-attention { border-bottom: 3px solid @warning_color; }
 
-/* If workspaces is the leftmost module, omit left margin */
-.modules-left > widget:first-child > #workspaces {
-    margin-left: 0;
-}
+/* Bluetooth */
+#bluetooth { color: #a3be8c; font-size: 14px; padding: 4px; }
+#bluetooth.connected { color: #88c0d0; }
+#bluetooth.disabled { color: #bf616a; }
 
-/* If workspaces is the rightmost module, omit right margin */
-.modules-right > widget:last-child > #workspaces {
-    margin-right: 0;
-}
+/* Clock background */
+#clock { background-color: #64727D; }
 
-@keyframes blink {
-    to {
-        background-color: #ffffff;
-        color: #000000;
-    }
-}
-
-label:focus {
-    background-color: #000000;
-}
-
-#clock {
-    background-color: #64727D;
-}
-
-#tray > .passive {
-	border-bottom: none;
-}
-#tray > .active {
-	border-bottom: 3px solid white;
-}
-#tray > .needs-attention {
-	border-bottom: 3px solid @warning_color;
-}
-#tray > widget {
-	transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-#tray > widget:hover {
-	background: @bg_hover;
-}
-
-#bluetooth {
-    color: #a3be8c;
-    font-size: 14px;
-    padding: 4px;
-}
-
-#bluetooth.connected {
-    color: #88c0d0;
-}
-
-#bluetooth.disabled {
-    color: #bf616a;
-}
