@@ -1,1 +1,0 @@
-. "/home/jeffrey/.ghcup/env"
