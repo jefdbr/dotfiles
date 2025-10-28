@@ -13,6 +13,7 @@
     "cpu",
     "memory",
     "battery",
+    "custom/weather",
     "pulseaudio"
   ],
   "hyprland/workspaces": {},
@@ -109,10 +110,16 @@
     }
   },
   "custom/mouse": {
-    "exec": "~/scripts/charge.sh",
+    "exec": "~/.config/waybar/scripts/charge.sh",
     "return-type": "json",
     "format": "{}",
     "tooltip-format": "Percentage: {percentage}%",
     "interval": 60
+  },
+  "custom/weather": {
+    "exec": "~/.config/waybar/scripts/weather.sh",
+    "interval": 600,
+    "format": "{}",
+    "tooltip": false
   }
 }
