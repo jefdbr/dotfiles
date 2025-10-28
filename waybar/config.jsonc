@@ -9,7 +9,6 @@
   ],
   "modules-right": [
     "tray",
-    "custom/sep",
     "custom/mouse",
     "cpu",
     "memory",
@@ -110,9 +109,10 @@
     }
   },
   "custom/mouse": {
-    "format": "󰌔 {percent}%",
     "exec": "~/scripts/charge.sh",
-    "tooltip-format": "Mouse battery: {percent}%",
+    "return-type": "json",
+    "format": "{} ",
+    "tooltip-format": "Percentage: {percentage}%",
     "interval": 60
   }
 }
