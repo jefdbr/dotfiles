@@ -10,8 +10,6 @@
   "modules-right": [
     "tray",
     "custom/mouse",
-    "cpu",
-    "memory",
     "battery",
     "pulseaudio",
     "custom/weather"
@@ -39,14 +37,6 @@
       "on-scroll-up": "shift_down",
       "on-scroll-down": "shift_up"
     }
-  },
-  "cpu": {
-    "format": "󰍛",
-    "tooltip": true,
-    "tooltip-format": "{per_core_usage}"
-  },
-  "memory": {
-    "format": "󰍜"
   },
   "pulseaudio": {
     "format": "{icon}",
@@ -119,7 +109,7 @@
   "custom/weather": {
     "exec": "bash -c 'curl -s \"wttr.in/?format=3\"'",
     "interval": 600,
-    "format": "  {}",
+    "format": " {}",
     "tooltip": false
   }
 }
