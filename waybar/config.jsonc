@@ -111,7 +111,7 @@
   "custom/mouse": {
     "exec": "~/scripts/charge.sh",
     "return-type": "json",
-    "format": "{} ",
+    "format": "{}",
     "tooltip-format": "Percentage: {percentage}%",
     "interval": 60
   }
