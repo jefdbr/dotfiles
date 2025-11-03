@@ -1,0 +1,79 @@
+* {
+    background-image: none;
+    box-shadow: none;
+}
+
+/* Main background — darker cold grey */
+window {
+    background-color: rgba(15, 15, 15, 0.88);
+}
+
+/* Buttons */
+button {
+    border-radius: 0;
+    border-color: #0A0A0A;
+    text-decoration-color: #E6E6E6;
+    color: #E6E6E6;
+
+    /* dark grey button */
+    background-color: #1A1A1A;
+
+    border-style: solid;
+    border-width: 1px;
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 25%;
+}
+
+/* Hover/active — cool grey instead of purple */
+button:focus,
+button:active,
+button:hover {
+    background-color: #3A3A3A;   /* medium-dark grey */
+    outline-style: none;
+}
+
+/* Icons (unchanged) */
+#lock {
+    background-image: image(
+        url("/usr/share/wlogout/icons/lock.png"),
+        url("/usr/local/share/wlogout/icons/lock.png")
+    );
+}
+
+#logout {
+    background-image: image(
+        url("/usr/share/wlogout/icons/logout.png"),
+        url("/usr/local/share/wlogout/icons/logout.png")
+    );
+}
+
+#suspend {
+    background-image: image(
+        url("/usr/share/wlogout/icons/suspend.png"),
+        url("/usr/local/share/wlogout/icons/suspend.png")
+    );
+}
+
+#hibernate {
+    background-image: image(
+        url("/usr/share/wlogout/icons/hibernate.png"),
+        url("/usr/local/share/wlogout/icons/hibernate.png")
+    );
+}
+
+#shutdown {
+    background-image: image(
+        url("/usr/share/wlogout/icons/shutdown.png"),
+        url("/usr/local/share/wlogout/icons/shutdown.png")
+    );
+}
+
+#reboot {
+    background-image: image(
+        url("/usr/share/wlogout/icons/reboot.png"),
+        url("/usr/local/share/wlogout/icons/reboot.png")
+    );
+}
+
