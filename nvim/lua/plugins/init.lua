@@ -10,10 +10,19 @@ return {
     "folke/noice.nvim",
     opts = {
       cmdline = {
-        enabled = false, -- Disable the cmdline popup
+        enabled = false,
       },
       messages = {
         enabled = false, -- Disable the message popup
+      },
+    },
+  },
+  {
+    "folke/snacks.nvim",
+    opts = {
+      picker = {
+        ignored = true,
+        hidden = true,
       },
     },
   },
