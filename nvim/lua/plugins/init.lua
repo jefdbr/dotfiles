@@ -21,8 +21,8 @@ return {
     "folke/snacks.nvim",
     opts = {
       picker = {
-        ignored = true,
-        hidden = true,
+        ignored = false,
+        hidden = false,
       },
     },
   },
