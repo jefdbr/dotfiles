@@ -104,14 +104,6 @@ alias update='yay -Syu --noconfirm'
 alias vim="nvim"
 alias ls='ls --color=auto'
 alias o='xdg-open'
-alias size='du --max-depth=1 -h'
-alias dwengo_db_run='echo -n "Postgres password: " && read -s password && echo \
-            && sudo docker run --name db \
-            -e POSTGRES_USER=postgres \
-            -e POSTGRES_PASSWORD=$password \
-            -e POSTGRES_DB=dwengo_db \
-            -p 5432:5432 -d postgres'
-alias dwengo_db_rm='sudo docker stop db && sudo docker rm db'
 alias weather="curl wttr.in"
 
 # Created by `pipx` on 2025-04-24 09:11:28

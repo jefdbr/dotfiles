@@ -20,4 +20,8 @@ git_custom_status() {
   fi
 }
 
-PROMPT='$(git_custom_status)%{$fg[cyan]%}[%~% ]%{$reset_color%}%B$%b '
+if [[ -n "$SSH_CONNECTION" ]]; then
+  PROMPT='$(git_custom_status)%{$fg[cyan]%}[%{$fg[blue]%}%n%{$fg[cyan]%}@%{$fg[blue]%}%m %{$fg[cyan]%}%~%{$fg[cyan]%}]%{$reset_color%}%B$%b '
+else
+  PROMPT='$(git_custom_status)%{$fg[cyan]%}[%~% ]%{$reset_color%}%B$%b '
+fi
