@@ -26,14 +26,4 @@ return {
       },
     },
   },
-  -- {
-  --   "stevearc/conform.nvim",
-  --   opts = function()
-  --     return {
-  --       formatters_by_ft = {
-  --         python = { "ruff" },
-  --       },
-  --     }
-  --   end,
-  -- },
 }

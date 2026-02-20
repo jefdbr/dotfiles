@@ -6,3 +6,10 @@ vim.g.snacks_animate = false
 vim.opt.wrap = true
 vim.opt.breakindent = true
 vim.opt.breakindentopt = "shift:2"
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    vim.diagnostic.disable(0)
+  end,
+})
