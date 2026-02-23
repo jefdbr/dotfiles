@@ -1,0 +1,9 @@
+[user]
+	email = jeffrey.debaere@ugent.be
+	name = Jeffrey Debaere
+[credential]
+	helper = pass
+[init]
+	defaultBranch = main
+[pull]
+	rebase = false
