@@ -185,7 +185,7 @@
     },
     "brightness": {
         "brightnessStep": 1,
-        "enableDdcSupport": false,
+        "enableDdcSupport": true,
         "enforceMinimum": false
     },
     "calendar": {
@@ -275,7 +275,7 @@
         }
     },
     "desktopWidgets": {
-        "enabled": false,
+        "enabled": true,
         "gridSnap": false,
         "monitorWidgets": [
         ]
@@ -307,7 +307,7 @@
         "animationDisabled": false,
         "animationSpeed": 1,
         "autoStartAuth": false,
-        "avatarImage": "/home/jeffrey/.face",
+        "avatarImage": "",
         "boxRadiusRatio": 1,
         "clockFormat": "hh\\nmm",
         "clockStyle": "custom",
@@ -384,7 +384,7 @@
         "use12hourFormat": false,
         "useFahrenheit": false,
         "weatherEnabled": true,
-        "weatherShowEffects": true
+        "weatherShowEffects": false
     },
     "network": {
         "airplaneModeEnabled": false,
@@ -444,7 +444,8 @@
         "enabledTypes": [
             0,
             1,
-            2
+            2,
+            3
         ],
         "location": "top_right",
         "monitors": [
@@ -452,7 +453,7 @@
         "overlayLayer": true
     },
     "plugins": {
-        "autoUpdate": false
+        "autoUpdate": true
     },
     "sessionMenu": {
         "countdownDuration": 10000,
