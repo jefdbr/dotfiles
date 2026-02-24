@@ -106,5 +106,6 @@ alias ls='ls --color=auto'
 alias o='xdg-open'
 alias weather="curl wttr.in"
 alias cd='z'
+alias cdi='zi'
 
 # Created by `pipx` on 2025-04-24 09:11:28
