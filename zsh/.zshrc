@@ -70,7 +70,7 @@ zstyle ':omz:update' mode disabled  # disable automatic updates
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(vi-mode ssh-agent pass)
+plugins=(vi-mode ssh-agent pass zoxide)
 zstyle :omz:plugins:ssh-agent lazy yes
 
 source $ZSH/oh-my-zsh.sh
@@ -105,5 +105,6 @@ alias vim="nvim"
 alias ls='ls --color=auto'
 alias o='xdg-open'
 alias weather="curl wttr.in"
+alias cd='z'
 
 # Created by `pipx` on 2025-04-24 09:11:28
