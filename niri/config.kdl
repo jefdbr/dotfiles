@@ -50,11 +50,11 @@ output "PNP(BNQ) ZOWIE XL LCD B4K01146SL0" {
     position x=0 y=180
 }
 
-// output "eDP-1" {
-//     mode "1920x1080"
-//     scale 1.2
-//     position x=0 y=0
-// }
+output "BOE 0x0A06 Unknown" {
+    mode "1920x1080"
+    scale 1.2
+    position x=0 y=0
+}
 
 // ══════════════════════════════════════════
 //  LAYOUT
