@@ -1,0 +1,301 @@
+// ══════════════════════════════════════════
+//  AUTOSTART
+// ══════════════════════════════════════════
+
+spawn-at-startup "systemctl" "--user" "start" "hyprpolkitagent"
+spawn-at-startup "kdeconnectd"
+spawn-at-startup "qs" "-c" "noctalia-shell" "--no-duplicate"
+
+
+// ══════════════════════════════════════════
+//  INPUT
+// ══════════════════════════════════════════
+
+input {
+    keyboard {
+        xkb {
+            layout "be"
+        }
+    }
+
+    touchpad {
+        tap
+        natural-scroll
+        scroll-factor 0.45
+        // disabled-on-external-mouse
+    }
+
+    mouse {
+        accel-profile "flat"
+    }
+
+    // warp-mouse-to-focus
+    focus-follows-mouse max-scroll-amount="0%"
+}
+
+
+// ══════════════════════════════════════════
+//  OUTPUTS / MONITORS
+// ══════════════════════════════════════════
+
+output "HP Inc. OMEN 27qs CNC40417HS" {
+    mode "2560x1440@239.998"
+    scale 1
+    position x=1920 y=0
+}
+
+output "PNP(BNQ) ZOWIE XL LCD B4K01146SL0" {
+    mode "1920x1080@60"
+    scale 1
+    position x=0 y=180
+}
+
+// output "eDP-1" {
+//     mode "1920x1080"
+//     scale 1.2
+//     position x=0 y=0
+// }
+
+// ══════════════════════════════════════════
+//  LAYOUT
+// ══════════════════════════════════════════
+
+overview {
+  zoom 0.8
+}
+
+layout {
+    background-color "transparent"
+    gaps 10
+
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+        proportion 1.0
+    }
+
+    preset-window-heights {
+        proportion 0.5
+        proportion 1.0
+    }
+
+    default-column-width { proportion 0.5; }
+
+    focus-ring {
+      width 2
+      active-color "#ffffff30"
+      inactive-color "#ffffff10"
+    }
+
+    border {
+        off
+    }
+
+    shadow {
+        off
+        // softness 20
+        // spread 3
+        // offset x=0 y=4
+        // color "#1a1a1aee"
+    }
+}
+
+
+// ══════════════════════════════════════════
+//  MISC / APPEARANCE
+// ══════════════════════════════════════════
+
+prefer-no-csd
+
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
+cursor {
+    xcursor-size 24
+}
+
+
+// ══════════════════════════════════════════
+//  ENVIRONMENT
+// ══════════════════════════════════════════
+
+environment {
+    XCURSOR_SIZE "24"
+    HYPRCURSOR_SIZE "24"
+    QT_QPA_PLATFORM "wayland"
+}
+
+
+// ══════════════════════════════════════════
+//  ANIMATIONS
+// ══════════════════════════════════════════
+
+animations {
+    slowdown 0.85
+
+    workspace-switch {
+        spring damping-ratio=1.0 stiffness=1000 epsilon=0.0001
+    }
+
+    window-open {
+        duration-ms 150
+        curve "ease-out-expo"
+    }
+
+    window-close {
+        duration-ms 150
+        curve "ease-out-quad"
+    }
+
+    window-movement {
+        spring damping-ratio=1.0 stiffness=800 epsilon=0.0001
+    }
+
+    window-resize {
+        spring damping-ratio=1.0 stiffness=800 epsilon=0.0001
+    }
+
+    config-notification-open-close {
+        spring damping-ratio=0.6 stiffness=1000 epsilon=0.001
+    }
+}
+
+
+// ══════════════════════════════════════════
+//  GESTURES
+// ══════════════════════════════════════════
+
+gestures {
+    hot-corners {
+    }
+}
+
+
+// ══════════════════════════════════════════
+//  LAYER RULES (noctalia-shell)
+// ══════════════════════════════════════════
+
+layer-rule {
+    match namespace="^noctalia-overview"
+    place-within-backdrop true
+}
+
+layer-rule {
+  match namespace="^noctalia-wallpaper*"
+  place-within-backdrop true
+}
+
+
+// ══════════════════════════════════════════
+//  WINDOW RULES
+// ══════════════════════════════════════════
+
+window-rule {
+    geometry-corner-radius 20
+    clip-to-geometry true
+}
+
+window-rule {
+    match app-id="^org\\.kde\\.dolphin$"
+    open-floating true
+    default-column-width { proportion 0.666; }
+}
+
+window-rule {
+    match app-id="^firefox$"
+    default-column-width { proportion 1.0; }
+}
+
+window-rule {
+    match app-id="^firefox$" title="^Picture-in-Picture$"
+    open-floating true
+}
+
+
+// ══════════════════════════════════════════
+//  KEY BINDINGS
+// ══════════════════════════════════════════
+
+binds {
+    // ── Help ──────────────────────────────
+    Super+Shift+M { show-hotkey-overlay; }
+
+    // ── Window / Session ──────────────────
+    Super+Q { close-window; }
+    Super+Ctrl+Shift+Q { quit skip-confirmation=true; }
+    Super+BackSpace { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "sessionMenu" "toggle"; }
+    Super+W { toggle-window-floating; }
+    Ctrl+Alt+Return { fullscreen-window; }
+    Super+M { maximize-column; }
+
+    // ── App launchers ─────────────────────
+    Super+T { spawn "kitty"; }
+    Super+F { spawn "firefox"; }
+    Super+A { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
+    Super+S { spawn-sh "pkill -x rofi || rofi -show ssh"; }
+
+    // ── Audio ─────────────────────────────
+    XF86AudioRaiseVolume allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "volume" "increase"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "volume" "decrease"; }
+    XF86AudioMute        allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "volume" "muteOutput"; }
+
+    // ── Brightness ────────────────────────
+    XF86MonBrightnessUp   allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "brightness" "increase"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "brightness" "decrease"; }
+
+    // ── Media ─────────────────────────────
+    XF86AudioPlay  allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "media" "playPause"; }
+    XF86AudioPause allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "media" "playPause"; }
+    XF86AudioNext  allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "media" "next"; }
+    XF86AudioPrev  allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "media" "previous"; }
+
+    // ── Screenshots ───────────────────────
+    Super+P { spawn-sh "grim -g \"$(slurp)\" - | swappy -f -"; }
+
+    // ── Focus navigation ──────────────────
+    Super+H { focus-column-left; }
+    Super+L { focus-column-right; }
+    Super+K { focus-window-up; }
+    Super+J { focus-window-down; }
+    Super+Left  { focus-column-left; }
+    Super+Right { focus-column-right; }
+    Super+Up    { focus-window-up; }
+    Super+Down  { focus-window-down; }
+    Super+Home  { focus-column-first; }
+    Super+End   { focus-column-last; }
+
+    // Focus monitor
+    Super+Ctrl+H { focus-monitor-left; }
+    Super+Ctrl+L { focus-monitor-right; }
+    Super+Ctrl+Left  { focus-monitor-left; }
+    Super+Ctrl+Right { focus-monitor-right; }
+
+    // ── Workspace navigation ──────────────
+    Super+O { toggle-overview; }
+    Super+Ctrl+K { focus-workspace-up; }
+    Super+Ctrl+J { focus-workspace-down; }
+    Super+Ctrl+Up { focus-workspace-up; }
+    Super+Ctrl+Down { focus-workspace-down; }
+
+    // ── Move window to workspace ──────────
+    Super+Ctrl+Alt+K { move-column-to-workspace-up; }
+    Super+Ctrl+Alt+J { move-column-to-workspace-down; }
+    Super+Ctrl+Alt+H { move-column-to-monitor-left; }
+    Super+Ctrl+Alt+L { move-column-to-monitor-right; }
+
+    // ── Move windows ──────────────────────
+    Super+Alt+H { move-column-left; }
+    Super+Alt+L { move-column-right; }
+    Super+Alt+K { move-window-up; }
+    Super+Alt+J { move-window-down; }
+
+    // ── Column/window sizing ──────────────
+    Super+R { switch-preset-column-width; }
+    Super+Shift+R { switch-preset-window-height; }
+    Super+Minus { set-column-width "-10%"; }
+    Super+Equal { set-column-width "+10%"; }
+
+    // ── Consume / Expel ───────────────────
+    Super+Alt+I { consume-window-into-column; }
+    Super+Alt+O { expel-window-from-column; }
+}
