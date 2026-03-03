@@ -62,6 +62,9 @@ output "PNP(BNQ) ZOWIE XL LCD B4K01146SL0" {
 
 overview {
   zoom 0.8
+  workspace-shadow {
+    off
+  }
 }
 
 layout {
