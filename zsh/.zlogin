@@ -1,4 +1,3 @@
-if uwsm check may-start; then
-  exec uwsm start niri.desktop
+if [ -z "$WAYLAND_DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
+  exec niri-session -l
 fi
-
