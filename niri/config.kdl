@@ -70,7 +70,7 @@ overview {
 
 layout {
     background-color "transparent"
-    gaps 10
+    gaps 6
 
     preset-column-widths {
         proportion 0.33333
@@ -214,6 +214,11 @@ window-rule {
 
 window-rule {
     match app-id="^firefox$" title="^Picture-in-Picture$"
+    open-floating true
+}
+
+window-rule {
+    match app-id="^hyprland-share-picker$" title="^Select what to share$"
     open-floating true
 }
 
