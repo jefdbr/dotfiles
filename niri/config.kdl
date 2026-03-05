@@ -5,6 +5,7 @@
 spawn-at-startup "systemctl" "--user" "start" "hyprpolkitagent"
 spawn-at-startup "kdeconnectd"
 spawn-at-startup "qs" "-c" "noctalia-shell" "--no-duplicate"
+spawn-at-startup "systemctl" "--user" "start" "xdg-desktop-portal-hyprland"
 
 
 // ══════════════════════════════════════════
@@ -223,7 +224,7 @@ window-rule {
 
 binds {
     // ── Help ──────────────────────────────
-    Super+Shift+M { show-hotkey-overlay; }
+    Super+Shift+H { show-hotkey-overlay; }
 
     // ── Window / Session ──────────────────
     Super+Q { close-window; }
@@ -232,6 +233,7 @@ binds {
     Super+W { toggle-window-floating; }
     Ctrl+Alt+Return { fullscreen-window; }
     Super+M { maximize-column; }
+    Super+shift+M { maximize-window-to-edges; }
 
     // ── App launchers ─────────────────────
     Super+T { spawn "kitty"; }
