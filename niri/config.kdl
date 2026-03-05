@@ -61,9 +61,9 @@ output "BOE 0x0A06 Unknown" {
 // ══════════════════════════════════════════
 
 overview {
-  zoom 0.8
+  zoom 0.5
   workspace-shadow {
-    off
+    on
   }
 }
 
