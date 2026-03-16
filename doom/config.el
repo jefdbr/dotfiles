@@ -53,33 +53,5 @@
 (after! evil
   (setq evil-ex-complete-emacs-commands nil)) ;; Only display vim commands when u type :
 
-;; (when (getenv "WAYLAND_DISPLAY")
-;;   (setq wl-copy-process nil)
-;;
-;;   (defun wl-copy (text)
-;;     (setq wl-copy-process
-;;           (make-process
-;;            :name "wl-copy"
-;;            :buffer nil
-;;            :command '("wl-copy" "-f" "-n")
-;;            :connection-type 'pipe
-;;            :noquery t))
-;;     (process-send-string wl-copy-process text)
-;;     (process-send-eof wl-copy-process))
-;;
-;;   (defun wl-paste ()
-;;     (when (not (and wl-copy-process
-;;                     (process-live-p wl-copy-process)))
-;;       (replace-regexp-in-string
-;;        "\r$" ""
-;;        (shell-command-to-string "wl-paste -n"))))
-;;
-;;   (setq interprogram-cut-function #'wl-copy)
-;;   (setq interprogram-paste-function #'wl-paste))
-
-(after! lsp-ui
-  (setq lsp-ui-doc-use-childframe t)
-  (setq lsp-ui-doc-render-function #'lsp-ui-doc--render-buffer))
-
 (use-package! msgpack)
 (use-package! tramp-rpc)
