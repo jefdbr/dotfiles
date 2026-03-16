@@ -237,6 +237,7 @@ binds {
     // ── App launchers ─────────────────────
     Super+T { spawn "kitty"; }
     Super+F { spawn "firefox"; }
+    Super+E { spawn "emacs"; }
     Super+A { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
     Super+S { spawn-sh "grep '^Host ' ~/.ssh/config | grep -v '\\*' | awk '{print $2}' | fuzzel --dmenu | xargs -I{} kitty ssh {}"; }
 

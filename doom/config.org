@@ -67,7 +67,7 @@ All your org files (agenda, notes, capture targets) should live here.
 #+end_src
 
 * Keybindings
-** Tab Navigation (Centaur Tabs)
+** Tab Naviration (Centaur Tabs)
 
 #+begin_src emacs-lisp
 (map! :g "M-H" #'centaur-tabs-backward
@@ -81,6 +81,17 @@ All your org files (agenda, notes, capture targets) should live here.
       "SPC" #'find-file)
 #+end_src
 
+** vterm-send-exc
+#+begin_src emacs-lisp
+(map! :after vterm
+      :map vterm-mode-map
+      "M-<escape>" #'vterm-send-escape)
+#+end_src
+
+** wl-paste
+#+begin_src emacs-lisp
+(map! "C-S-v" (cmd! (insert (shell-command-to-string "wl-paste -n"))))
+#+end_src
 * LSP
 ** Apheleia - Prisma formatter
 #+begin_src emacs-lisp
@@ -99,29 +110,29 @@ All your org files (agenda, notes, capture targets) should live here.
 * Clipboard (Wayland)
 Fixes clipboard pasting issue
 #+begin_src emacs-lisp
-(when (getenv "WAYLAND_DISPLAY")
-  (setq wl-copy-process nil)
-
-  (defun wl-copy (text)
-    (setq wl-copy-process
-          (make-process
-           :name "wl-copy"
-           :buffer nil
-           :command '("wl-copy" "-f" "-n")
-           :connection-type 'pipe
-           :noquery t))
-    (process-send-string wl-copy-process text)
-    (process-send-eof wl-copy-process))
-
-  (defun wl-paste ()
-    (when (not (and wl-copy-process
-                    (process-live-p wl-copy-process)))
-      (replace-regexp-in-string
-       "\r$" ""
-       (shell-command-to-string "wl-paste -n"))))
-
-  (setq interprogram-cut-function #'wl-copy)
-  (setq interprogram-paste-function #'wl-paste))
+;; (when (getenv "WAYLAND_DISPLAY")
+;;   (setq wl-copy-process nil)
+;;
+;;   (defun wl-copy (text)
+;;     (setq wl-copy-process
+;;           (make-process
+;;            :name "wl-copy"
+;;            :buffer nil
+;;            :command '("wl-copy" "-f" "-n")
+;;            :connection-type 'pipe
+;;            :noquery t))
+;;     (process-send-string wl-copy-process text)
+;;     (process-send-eof wl-copy-process))
+;;
+;;   (defun wl-paste ()
+;;     (when (not (and wl-copy-process
+;;                     (process-live-p wl-copy-process)))
+;;       (replace-regexp-in-string
+;;        "\r$" ""
+;;        (shell-command-to-string "wl-paste -n"))))
+;;
+;;   (setq interprogram-cut-function #'wl-copy)
+;;   (setq interprogram-paste-function #'wl-paste))
 #+end_src
 
 Lsp dialog render issue fix
@@ -129,4 +140,10 @@ Lsp dialog render issue fix
 (after! lsp-ui
   (setq lsp-ui-doc-use-childframe t)
   (setq lsp-ui-doc-render-function #'lsp-ui-doc--render-buffer))
+#+end_src
+* Tramp
+tramp but better 
+#+begin_src emacs-lisp
+(use-package! msgpack)
+(use-package! tramp-rpc)
 #+end_src

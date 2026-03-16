@@ -55,4 +55,6 @@
 
 (package! lsp-mode)
 (package! prisma-mode :recipe (:host github :repo "pimeys/emacs-prisma-mode" :branch "main"))
-(package! base16-theme)
+
+(package! msgpack)
+(package! tramp-rpc :recipe (:host github :repo "ArthurHeymans/emacs-tramp-rpc"))
