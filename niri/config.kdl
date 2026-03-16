@@ -111,7 +111,7 @@ hotkey-overlay {
 prefer-no-csd
 
 cursor {
-    xcursor-size 12
+    xcursor-size 24
 }
 
 
