@@ -43,9 +43,9 @@
   (setf (alist-get 'prisma-mode apheleia-mode-alist) 'prettier)
   (setf (alist-get 'prisma-ts-mode apheleia-mode-alist) 'prettier))
 
-(setq evil-ex-visual-char-range nil)
+(setq evil-ex-visual-char-range nil) ;; Line based ranged
 (after! evil
-  (setq evil-ex-complete-emacs-commands nil))
+  (setq evil-ex-complete-emacs-commands nil)) ;; Only display vim commands when u type :
 
 (when (getenv "WAYLAND_DISPLAY")
   (setq wl-copy-process nil)

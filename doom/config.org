@@ -89,10 +89,11 @@ All your org files (agenda, notes, capture targets) should live here.
   (setf (alist-get 'prisma-ts-mode apheleia-mode-alist) 'prettier))
 #+end_src
 * Evil
+** Make commands
 #+begin_src emacs-lisp
-(setq evil-ex-visual-char-range nil)
+(setq evil-ex-visual-char-range nil) ;; Line based ranged
 (after! evil
-  (setq evil-ex-complete-emacs-commands nil))
+  (setq evil-ex-complete-emacs-commands nil)) ;; Only display vim commands when u type :
 #+end_src
 
 * Clipboard (Wayland)
