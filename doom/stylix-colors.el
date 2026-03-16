@@ -1,1 +1,0 @@
-/nix/store/gpmim81i1i1calgi5n645rw6pkl3q6hi-home-manager-files/.config/doom/stylix-colors.el
