@@ -68,11 +68,17 @@ All your org files (agenda, notes, capture targets) should live here.
 
 * Keybindings
 ** Tab Navigation (Centaur Tabs)
-=M-h= / =M-l= move between tabs in Normal mode, mirroring Vim-style =h=/=l= navigation.
 
 #+begin_src emacs-lisp
 (map! :g "M-H" #'centaur-tabs-backward
       :g "M-L" #'centaur-tabs-forward)
+#+end_src
+
+** Find File
+
+#+begin_src emacs-lisp
+(map! :leader
+      "SPC" #'find-file)
 #+end_src
 
 * LSP

@@ -36,6 +36,9 @@
 (map! :g "M-H" #'centaur-tabs-backward
       :g "M-L" #'centaur-tabs-forward)
 
+(map! :leader
+      "SPC" #'find-file)
+
 (after! apheleia
   (setf (alist-get 'prisma-mode apheleia-mode-alist) 'prettier)
   (setf (alist-get 'prisma-ts-mode apheleia-mode-alist) 'prettier))
