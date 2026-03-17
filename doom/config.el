@@ -50,6 +50,9 @@
       evil-vsplit-window-right t
       evil-split-window-below t)
 
+(after! projectile
+  (setq projectile-switch-project-action #'projectile-dired))
+
 (use-package! msgpack)
 (use-package! tramp-rpc)
 

@@ -88,6 +88,9 @@ All your org files (agenda, notes, capture targets) should live here.
       evil-ex-complete-emacs-commands nil
       evil-vsplit-window-right t
       evil-split-window-below t)
+
+(after! projectile
+  (setq projectile-switch-project-action #'projectile-dired))
 #+end_src
 * rpc-tramp
 #+begin_src emacs-lisp
