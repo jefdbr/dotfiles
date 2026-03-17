@@ -5,12 +5,6 @@
 ;; -*- lexical-binding: t; -*-
 #+end_src
 
-* Personal Information
-#+begin_src emacs-lisp
-(setq user-full-name "Jeffrey Debaere"
-      user-mail-address "jeffrey.debaere@ugent.be")
-#+end_src
-
 * Appearance
 ** Theme
 #+begin_src emacs-lisp
@@ -24,7 +18,6 @@
     `(fringe :background ,stylix-base00)
     `(line-number :background ,stylix-base00)
     `(line-number-current-line :background ,stylix-base01)
-    ;;`(hl-line :background ,stylix-base01)
     `(region :background ,stylix-base02)
     `(mode-line :background ,stylix-base01)
     `(mode-line-inactive :background ,stylix-base00)
@@ -85,9 +78,9 @@ All your org files (agenda, notes, capture targets) should live here.
 
 * LSP
 #+begin_src emacs-lisp
-(after! apheleia
-  (setf (alist-get 'prisma-mode apheleia-mode-alist) 'prettier)
-  (setf (alist-get 'prisma-ts-mode apheleia-mode-alist) 'prettier))
+;; (after! apheleia
+;;   (setf (alist-get 'prisma-mode apheleia-mode-alist) 'prettier)
+;;   (setf (alist-get 'prisma-ts-mode apheleia-mode-alist) 'prettier))
 #+end_src
 * Evil
 #+begin_src emacs-lisp
@@ -100,4 +93,29 @@ All your org files (agenda, notes, capture targets) should live here.
 #+begin_src emacs-lisp
 (use-package! msgpack)
 (use-package! tramp-rpc)
+#+end_src
+
+* Treesitter
+** Prisma
+#+begin_src emacs-lisp
+(after! treesit
+  (add-to-list 'treesit-language-source-alist
+               '(prisma "https://github.com/victorhqc/tree-sitter-prisma"))
+
+  (unless (treesit-language-available-p 'prisma)
+    (treesit-install-language-grammar 'prisma)))
+
+(use-package! prisma-ts-mode
+  :mode "\\.prisma\\'")
+
+(after! lsp-mode
+  (add-to-list 'lsp-language-id-configuration '(prisma-ts-mode . "prisma"))
+
+  (lsp-register-client
+   (make-lsp-client
+    :new-connection (lsp-stdio-connection '("prisma-language-server" "--stdio"))
+    :activation-fn (lsp-activate-on "prisma")
+    :server-id 'prisma-ls)))
+
+(add-hook 'prisma-ts-mode-hook #'lsp-deferred)
 #+end_src

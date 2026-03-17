@@ -53,8 +53,5 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;; (unpin! t)
 
-(package! lsp-mode)
-(package! prisma-mode :recipe (:host github :repo "pimeys/emacs-prisma-mode" :branch "main"))
-
-(package! msgpack)
+(package! prisma-ts-mode :recipe (:host github :repo "nverno/prisma-ts-mode"))
 (package! tramp-rpc :recipe (:host github :repo "ArthurHeymans/emacs-tramp-rpc"))

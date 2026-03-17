@@ -1,8 +1,5 @@
 ;; -*- lexical-binding: t; -*-
 
-(setq user-full-name "Jeffrey Debaere"
-      user-mail-address "jeffrey.debaere@ugent.be")
-
 (setq doom-theme 'doom-one)
 
 (load! "stylix-colors")
@@ -13,7 +10,6 @@
     `(fringe :background ,stylix-base00)
     `(line-number :background ,stylix-base00)
     `(line-number-current-line :background ,stylix-base01)
-    ;;`(hl-line :background ,stylix-base01)
     `(region :background ,stylix-base02)
     `(mode-line :background ,stylix-base01)
     `(mode-line-inactive :background ,stylix-base00)
@@ -45,9 +41,9 @@
 
 (map! "C-S-v" (cmd! (insert (shell-command-to-string "wl-paste -n"))))
 
-(after! apheleia
-  (setf (alist-get 'prisma-mode apheleia-mode-alist) 'prettier)
-  (setf (alist-get 'prisma-ts-mode apheleia-mode-alist) 'prettier))
+;; (after! apheleia
+;;   (setf (alist-get 'prisma-mode apheleia-mode-alist) 'prettier)
+;;   (setf (alist-get 'prisma-ts-mode apheleia-mode-alist) 'prettier))
 
 (setq evil-ex-visual-char-range nil
       evil-ex-complete-emacs-commands nil
@@ -56,3 +52,24 @@
 
 (use-package! msgpack)
 (use-package! tramp-rpc)
+
+(after! treesit
+  (add-to-list 'treesit-language-source-alist
+               '(prisma "https://github.com/victorhqc/tree-sitter-prisma"))
+
+  (unless (treesit-language-available-p 'prisma)
+    (treesit-install-language-grammar 'prisma)))
+
+(use-package! prisma-ts-mode
+  :mode "\\.prisma\\'")
+
+(after! lsp-mode
+  (add-to-list 'lsp-language-id-configuration '(prisma-ts-mode . "prisma"))
+
+  (lsp-register-client
+   (make-lsp-client
+    :new-connection (lsp-stdio-connection '("prisma-language-server" "--stdio"))
+    :activation-fn (lsp-activate-on "prisma")
+    :server-id 'prisma-ls)))
+
+(add-hook 'prisma-ts-mode-hook #'lsp-deferred)
