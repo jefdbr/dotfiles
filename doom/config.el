@@ -35,6 +35,11 @@
 (map! :leader
       "SPC" #'find-file)
 
+(after! vterm
+  (define-key vterm-mode-map (kbd "C-S-v")
+    (lambda () (interactive)
+      (vterm-send-string (shell-command-to-string "wl-paste -n")))))
+
 (map! :after vterm
       :map vterm-mode-map
       "M-<escape>" #'vterm-send-escape)

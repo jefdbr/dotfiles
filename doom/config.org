@@ -64,8 +64,13 @@ All your org files (agenda, notes, capture targets) should live here.
       "SPC" #'find-file)
 #+end_src
 
-** vterm-send-exc
+** vterm
 #+begin_src emacs-lisp
+(after! vterm
+  (define-key vterm-mode-map (kbd "C-S-v")
+    (lambda () (interactive)
+      (vterm-send-string (shell-command-to-string "wl-paste -n")))))
+
 (map! :after vterm
       :map vterm-mode-map
       "M-<escape>" #'vterm-send-escape)
