@@ -73,3 +73,23 @@
     :activation-fn (lsp-activate-on "prisma")
     :server-id 'prisma-ls)))
 (add-hook 'prisma-ts-mode-hook #'lsp-deferred)
+
+(use-package! qml-ts-mode
+  :mode "\\.qml\\'")
+
+(after! lsp-mode
+  (add-to-list 'lsp-language-id-configuration '(qml-ts-mode . "qml-ts"))
+  (lsp-register-client
+   (make-lsp-client
+    :new-connection (lsp-stdio-connection '("qmlls" "-E"))
+    :activation-fn (lsp-activate-on "qml-ts")
+    :server-id 'qmlls)))
+
+(add-hook 'qml-ts-mode-hook #'lsp-deferred)
+
+(after! apheleia
+  (setf (alist-get 'qmlformat apheleia-formatters)
+        '("qmlformat" "-w" "2" "-W" "360" "-S" "--semicolon-rule" "always" filepath))
+  (setf (alist-get 'qml-ts-mode apheleia-mode-alist) 'qmlformat))
+
+(setenv "QML_IMPORT_PATH" "/nix/store/i8sw4xfclkrqdr4xv509x6ijyqvd9ld6-quickshell-2026-03-14_8aa9d8c/lib/qt-6/qml")

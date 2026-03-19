@@ -15,21 +15,21 @@ input {
         xkb {
             layout "be,us"
         }
+
+        numlock
     }
 
     touchpad {
         tap
         natural-scroll
         scroll-factor 0.45
-        // disabled-on-external-mouse
+        drag true
+        drag-lock
     }
 
     mouse {
         accel-profile "flat"
     }
-
-    // warp-mouse-to-focus
-    focus-follows-mouse max-scroll-amount="0%"
 }
 
 
@@ -258,43 +258,48 @@ binds {
 
     // ── Screenshots ───────────────────────
     Super+P { spawn-sh "grim -g \"$(slurp)\" - | swappy -f -"; }
+    Super+Shift+P { spawn-sh "grim - | swappy -f -"; }
 
     // ── Focus navigation ──────────────────
     Super+H { focus-column-left; }
-    Super+L { focus-column-right; }
-    Super+K { focus-window-up; }
-    Super+J { focus-window-down; }
     Super+Left  { focus-column-left; }
+    Super+L { focus-column-right; }
     Super+Right { focus-column-right; }
+    Super+K { focus-window-up; }
     Super+Up    { focus-window-up; }
+    Super+J { focus-window-down; }
     Super+Down  { focus-window-down; }
-    Super+Home  { focus-column-first; }
-    Super+End   { focus-column-last; }
 
-    // Focus monitor
+    // ── Workspace/ monitor navigation ─────
     Super+Ctrl+H { focus-monitor-left; }
-    Super+Ctrl+L { focus-monitor-right; }
     Super+Ctrl+Left  { focus-monitor-left; }
+    Super+Ctrl+L { focus-monitor-right; }
     Super+Ctrl+Right { focus-monitor-right; }
-
-    // ── Workspace navigation ──────────────
-    Super+O { toggle-overview; }
     Super+Ctrl+K { focus-workspace-up; }
-    Super+Ctrl+J { focus-workspace-down; }
     Super+Ctrl+Up { focus-workspace-up; }
+    Super+Ctrl+J { focus-workspace-down; }
     Super+Ctrl+Down { focus-workspace-down; }
+    Super+O { toggle-overview; }
 
     // ── Move window to workspace ──────────
-    Super+Ctrl+Alt+K { move-column-to-workspace-up; }
-    Super+Ctrl+Alt+J { move-column-to-workspace-down; }
     Super+Ctrl+Alt+H { move-column-to-monitor-left; }
+    Super+Ctrl+Alt+Left { move-column-to-monitor-left; }
     Super+Ctrl+Alt+L { move-column-to-monitor-right; }
+    Super+Ctrl+Alt+Right { move-column-to-monitor-right; }
+    Super+Ctrl+Alt+K { move-column-to-workspace-up; }
+    Super+Ctrl+Alt+Up { move-column-to-workspace-up; }
+    Super+Ctrl+Alt+J { move-column-to-workspace-down; }
+    Super+Ctrl+Alt+Down { move-column-to-workspace-down; }
 
     // ── Move windows ──────────────────────
     Super+Alt+H { move-column-left; }
+    Super+Alt+Left { move-column-left; }
     Super+Alt+L { move-column-right; }
+    Super+Alt+Right { move-column-right; }
     Super+Alt+K { move-window-up; }
+    Super+Alt+Up { move-window-up; }
     Super+Alt+J { move-window-down; }
+    Super+Alt+Down { move-window-down; }
 
     // ── Column/window sizing ──────────────
     Super+R { switch-preset-column-width; }

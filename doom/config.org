@@ -86,22 +86,23 @@ All your org files (agenda, notes, capture targets) should live here.
 (after! projectile
   (setq projectile-switch-project-action #'projectile-dired))
 #+end_src
-* rpc-tramp
+* Packages
+** rpc-tramp
 #+begin_src emacs-lisp
 (use-package! msgpack)
 (use-package! tramp-rpc)
 #+end_src
 
-
-* Prisma schema support
+* langs
+** Prisma
 Provides tree-sitter highlighting, LSP and formatting for =.prisma= files.
 
-** Dependencies
-- =packages.el=: ~(package! prisma-ts-mode :recipe (:host github :repo "nverno/prisma-ts-mode" :files ("*.el")))~
+*** Dependencies
+- =packages.el=: ~(package! prisma-ts-mode :recipe (:host github :repo "nverno/prisma-ts-mode"))~
 - Language server: ~npm i -D @prisma/language-server~
 - Formatter: ~prettier~ with ~prettier-plugin-prisma~
 
-** Config
+*** Config
 #+begin_src emacs-lisp
 (use-package! prisma-ts-mode
   :mode "\\.prisma\\'")
@@ -124,4 +125,33 @@ Provides tree-sitter highlighting, LSP and formatting for =.prisma= files.
     :activation-fn (lsp-activate-on "prisma")
     :server-id 'prisma-ls)))
 (add-hook 'prisma-ts-mode-hook #'lsp-deferred)
+#+end_src
+** QML
+Provides tree-sitter highlighting, LSP and formatting for =.qml= files.
+
+*** Dependencies
+- =packages.el=: ~(package! qml-ts-mode :recipe (:host github :repo "xhcoding/qml-ts-mode"))~
+- Language server: nix pkg: ~qt6.qtdeclarative~
+- Formatter: ~prettier~ with nix pkg: ~qt6.qtdeclarative~
+*** Config
+#+begin_src emacs-lisp
+(use-package! qml-ts-mode
+  :mode "\\.qml\\'")
+
+(after! lsp-mode
+  (add-to-list 'lsp-language-id-configuration '(qml-ts-mode . "qml-ts"))
+  (lsp-register-client
+   (make-lsp-client
+    :new-connection (lsp-stdio-connection '("qmlls" "-E"))
+    :activation-fn (lsp-activate-on "qml-ts")
+    :server-id 'qmlls)))
+
+(add-hook 'qml-ts-mode-hook #'lsp-deferred)
+
+(after! apheleia
+  (setf (alist-get 'qmlformat apheleia-formatters)
+        '("qmlformat" "-w" "2" "-W" "360" "-S" "--semicolon-rule" "always" filepath))
+  (setf (alist-get 'qml-ts-mode apheleia-mode-alist) 'qmlformat))
+
+(setenv "QML_IMPORT_PATH" "/nix/store/i8sw4xfclkrqdr4xv509x6ijyqvd9ld6-quickshell-2026-03-14_8aa9d8c/lib/qt-6/qml")
 #+end_src

@@ -55,3 +55,4 @@
 
 (package! prisma-ts-mode :recipe (:host github :repo "nverno/prisma-ts-mode"))
 (package! tramp-rpc :recipe (:host github :repo "ArthurHeymans/emacs-tramp-rpc"))
+(package! qml-ts-mode :recipe (:host github :repo "xhcoding/qml-ts-mode"))
