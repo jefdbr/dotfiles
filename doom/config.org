@@ -48,6 +48,7 @@ All your org files (agenda, notes, capture targets) should live here.
 
 #+begin_src emacs-lisp
 (setq org-directory "~/org/")
+(setq org-agenda-files '("~/org/agenda.org"))
 #+end_src
 
 * Keybindings

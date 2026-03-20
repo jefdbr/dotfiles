@@ -62,9 +62,9 @@ output "BOE 0x0A06 Unknown" {
 // ══════════════════════════════════════════
 
 overview {
-  zoom 0.6
+  zoom 0.5
   workspace-shadow {
-    on
+    off
   }
 }
 
@@ -203,6 +203,11 @@ window-rule {
     match app-id="^org\\.gnome\\.Nautilus$"
     open-floating true
     default-column-width { proportion 0.666; }
+}
+
+window-rule {
+    match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
+    default-floating-position x=10 y=10 relative-to="bottom-right"
 }
 
 window-rule {

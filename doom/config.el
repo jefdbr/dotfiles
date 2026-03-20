@@ -28,6 +28,7 @@
 (setq display-line-numbers-type 'relative)
 
 (setq org-directory "~/org/")
+(setq org-agenda-files '("~/org/agenda.org"))
 
 (map! :g "M-H" #'centaur-tabs-backward
       :g "M-L" #'centaur-tabs-forward)
