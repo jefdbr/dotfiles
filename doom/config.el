@@ -58,6 +58,11 @@
 (use-package! msgpack)
 (use-package! tramp-rpc)
 
+(use-package! claude-code-ide
+  :bind ("C-c C-g" . claude-code-ide-menu) ; Set your favorite keybinding
+  :config
+  (claude-code-ide-emacs-tools-setup)) ; Optionally enable Emacs MCP tools
+
 (use-package! prisma-ts-mode
   :mode "\\.prisma\\'")
 ;; formatter

@@ -98,6 +98,13 @@ All your org files (agenda, notes, capture targets) should live here.
 (use-package! msgpack)
 (use-package! tramp-rpc)
 #+end_src
+** Claude
+#+begin_src emacs-lisp
+(use-package! claude-code-ide
+  :bind ("C-c C-g" . claude-code-ide-menu) ; Set your favorite keybinding
+  :config
+  (claude-code-ide-emacs-tools-setup)) ; Optionally enable Emacs MCP tools
+#+end_src
 
 * langs
 ** Prisma

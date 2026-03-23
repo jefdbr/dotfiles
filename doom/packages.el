@@ -57,3 +57,6 @@
 
 (package! qml-ts-mode :recipe (:host github :repo "xhcoding/qml-ts-mode"))
 (package! prisma-ts-mode :recipe (:host github :repo "nverno/prisma-ts-mode"))
+
+(package! claude-code-ide
+  :recipe (:host github :repo "manzaltu/claude-code-ide.el"))
