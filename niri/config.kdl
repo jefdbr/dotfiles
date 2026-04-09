@@ -70,7 +70,7 @@ overview {
 
 layout {
     background-color "transparent"
-    gaps 6
+    gaps 4
 
     preset-column-widths {
         proportion 0.33333
@@ -87,17 +87,22 @@ layout {
     default-column-width { proportion 1.0; }
 
     focus-ring {
-      width 2
-      active-color "#ffffff30"
-      inactive-color "#ffffff10"
+      off
     }
 
     border {
-        off
+      width 2
+      active-color "#ffffff60"
+      inactive-color "#ffffff20"
     }
 
     shadow {
         off
+    }
+
+   struts {
+        top 2
+        bottom 2
     }
 }
 
@@ -123,12 +128,7 @@ cursor {
 
 environment {
     XKB_DEFAULT_LAYOUT "be"
-    XCURSOR_SIZE "24"
-    HYPRCURSOR_SIZE "24"
-    QT_QPA_PLATFORM "wayland"
-    QT_QPA_PLATFORMTHEME "qt6ct"
 }
-
 
 // ══════════════════════════════════════════
 //  ANIMATIONS

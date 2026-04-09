@@ -50,10 +50,24 @@
 (setq evil-ex-visual-char-range nil
       evil-ex-complete-emacs-commands nil
       evil-vsplit-window-right t
-      evil-split-window-below t)
+      evil-split-window-below t
+      evil-kill-on-visual-paste nil)
 
 (after! projectile
   (setq projectile-switch-project-action #'projectile-dired))
+
+;; Make all delete operations use the black hole register by default.
+;; You can still yank-delete into a named register with e.g. "add
+(defadvice! my/evil-delete-to-black-hole (fn beg end &optional type register yank-handler)
+  "Make evil-delete use the black hole register unless a register was explicitly given."
+  :around #'evil-delete
+  (funcall fn beg end type (or register ?_) yank-handler))
+
+;; Same for evil-change (c operator), which also yanks before changing
+(defadvice! my/evil-change-to-black-hole (fn beg end &optional type register yank-handler delete-func)
+  "Make evil-change use the black hole register unless a register was explicitly given."
+  :around #'evil-change
+  (funcall fn beg end type (or register ?_) yank-handler delete-func))
 
 (use-package! msgpack)
 (use-package! tramp-rpc)
