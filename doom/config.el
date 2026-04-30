@@ -56,19 +56,6 @@
 (after! projectile
   (setq projectile-switch-project-action #'projectile-dired))
 
-;; Make all delete operations use the black hole register by default.
-;; You can still yank-delete into a named register with e.g. "add
-(defadvice! my/evil-delete-to-black-hole (fn beg end &optional type register yank-handler)
-  "Make evil-delete use the black hole register unless a register was explicitly given."
-  :around #'evil-delete
-  (funcall fn beg end type (or register ?_) yank-handler))
-
-;; Same for evil-change (c operator), which also yanks before changing
-(defadvice! my/evil-change-to-black-hole (fn beg end &optional type register yank-handler delete-func)
-  "Make evil-change use the black hole register unless a register was explicitly given."
-  :around #'evil-change
-  (funcall fn beg end type (or register ?_) yank-handler delete-func))
-
 (use-package! msgpack)
 (use-package! tramp-rpc)
 
@@ -76,6 +63,20 @@
   :bind ("C-c C-g" . claude-code-ide-menu) ; Set your favorite keybinding
   :config
   (claude-code-ide-emacs-tools-setup)) ; Optionally enable Emacs MCP tools
+
+(use-package! caddyfile-mode
+  :mode ("Caddyfile\\(?:\\..*\\)?\\'" . caddyfile-mode))
+
+(use-package! gptel
+  :config
+  (setq gptel-model 'claude-sonnet-4-5-20250929)
+
+  (setq gptel-backend
+        (gptel-make-anthropic "Claude"
+          :stream t
+          :key (lambda ()
+                 (string-trim
+                  (shell-command-to-string "pass show personal/claude_api_key"))))))
 
 (use-package! prisma-ts-mode
   :mode "\\.prisma\\'")
