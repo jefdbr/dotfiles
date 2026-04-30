@@ -58,6 +58,7 @@
 
 (use-package! msgpack)
 (use-package! tramp-rpc)
+(setq tramp-rpc-deploy-git-build-policy 'release)
 
 (use-package! claude-code-ide
   :bind ("C-c C-g" . claude-code-ide-menu) ; Set your favorite keybinding
