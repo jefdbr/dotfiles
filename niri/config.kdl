@@ -121,6 +121,11 @@ cursor {
     xcursor-size 24
 }
 
+debug {
+  // Allows notification actions and window activation from Noctalia.
+  honor-xdg-activation-with-invalid-serial
+}
+
 // ══════════════════════════════════════════
 //  ENVIRONMENT
 // ══════════════════════════════════════════
@@ -173,7 +178,6 @@ gestures {
     }
 }
 
-
 // ══════════════════════════════════════════
 //  LAYER RULES (noctalia-shell)
 // ══════════════════════════════════════════
@@ -194,14 +198,43 @@ layer-rule {
 // ══════════════════════════════════════════
 
 window-rule {
+  background-effect {
+    blur true
+    xray false
+  }
+}
+
+layer-rule {
+  match namespace="^noctalia-(bar-main|notification|dock|panel)$"
+  opacity 0.7
+  background-effect {
+    xray false
+    //blur false
+  }
+}
+
+window-rule {
     geometry-corner-radius 13
     clip-to-geometry true
 }
 
 window-rule {
     match app-id="^org\\.gnome\\.Nautilus$"
+    opacity 0.7
+    background-effect {
+      // blur true
+      // xray true
+    }
     open-floating true
     default-column-width { proportion 0.666; }
+}
+
+window-rule {
+  match app-id="dev.noctalia.Noctalia.Settings"
+  opacity 0.7
+  open-floating true
+  default-column-width { fixed 1080; }
+  default-window-height { fixed 920; }
 }
 
 window-rule {
@@ -218,12 +251,6 @@ window-rule {
     match app-id="^firefox$" title="^Picture-in-Picture$"
     open-floating true
 }
-
-window-rule {
-    match app-id="^hyprland-share-picker$" title="^Select what to share$"
-    open-floating true
-}
-
 
 // ══════════════════════════════════════════
 //  KEY BINDINGS
@@ -245,7 +272,8 @@ binds {
     Super+T { spawn "kitty"; }
     Super+F { spawn "firefox"; }
     Super+E { spawn "emacs"; }
-    Super+A { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
+    Super+A { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
+    // Super+A { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
     Super+S { spawn-sh "grep '^Host ' ~/.ssh/config | grep -v '\\*' | awk '{print $2}' | fuzzel --dmenu | xargs -I{} kitty ssh {}"; }
 
     // ── Audio ─────────────────────────────
