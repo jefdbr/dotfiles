@@ -48,10 +48,11 @@
 (map! "C-S-v" (cmd! (insert (shell-command-to-string "wl-paste -n"))))
 
 (setq evil-ex-visual-char-range nil
-      evil-ex-complete-emacs-commands nil
+      ;evil-ex-complete-emacs-commands nil
       evil-vsplit-window-right t
       evil-split-window-below t
-      evil-kill-on-visual-paste nil)
+      ;evil-kill-on-visual-paste nil
+      )
 
 (after! projectile
   (setq projectile-switch-project-action #'projectile-dired))
@@ -67,17 +68,6 @@
 
 (use-package! caddyfile-mode
   :mode ("Caddyfile\\(?:\\..*\\)?\\'" . caddyfile-mode))
-
-(use-package! gptel
-  :config
-  (setq gptel-model 'claude-sonnet-4-5-20250929)
-
-  (setq gptel-backend
-        (gptel-make-anthropic "Claude"
-          :stream t
-          :key (lambda ()
-                 (string-trim
-                  (shell-command-to-string "pass show personal/claude_api_key"))))))
 
 (use-package! prisma-ts-mode
   :mode "\\.prisma\\'")

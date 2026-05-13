@@ -85,10 +85,11 @@ All your org files (agenda, notes, capture targets) should live here.
 * Evil
 #+begin_src emacs-lisp
 (setq evil-ex-visual-char-range nil
-      evil-ex-complete-emacs-commands nil
+      ;evil-ex-complete-emacs-commands nil
       evil-vsplit-window-right t
       evil-split-window-below t
-      evil-kill-on-visual-paste nil)
+      ;evil-kill-on-visual-paste nil
+      )
 
 (after! projectile
   (setq projectile-switch-project-action #'projectile-dired))
@@ -112,20 +113,6 @@ All your org files (agenda, notes, capture targets) should live here.
 #+begin_src emacs-lisp
 (use-package! caddyfile-mode
   :mode ("Caddyfile\\(?:\\..*\\)?\\'" . caddyfile-mode))
-#+end_src
-
-** Gptel
-#+begin_src emacs-lisp
-(use-package! gptel
-  :config
-  (setq gptel-model 'claude-sonnet-4-5-20250929)
-
-  (setq gptel-backend
-        (gptel-make-anthropic "Claude"
-          :stream t
-          :key (lambda ()
-                 (string-trim
-                  (shell-command-to-string "pass show personal/claude_api_key"))))))
 #+end_src
 * langs
 ** Prisma
