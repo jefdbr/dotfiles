@@ -5,7 +5,6 @@
 spawn-at-startup "noctalia"
 spawn-at-startup "xwayland-satellite"
 
-
 // ══════════════════════════════════════════
 //  INPUT
 // ══════════════════════════════════════════
@@ -99,11 +98,6 @@ layout {
     shadow {
         off
     }
-
-   struts {
-        top 2
-        bottom 2
-    }
 }
 
 
@@ -183,6 +177,12 @@ gestures {
 // ══════════════════════════════════════════
 
 layer-rule {
+  background-effect {
+    xray false
+  }
+}
+
+layer-rule {
     match namespace="^noctalia-overview"
     place-within-backdrop true
 }
@@ -209,7 +209,7 @@ window-rule {
 }
 
 window-rule {
-    geometry-corner-radius 13
+    geometry-corner-radius 10
     clip-to-geometry true
 }
 
@@ -217,7 +217,7 @@ window-rule {
     match app-id="^org\\.gnome\\.Nautilus$"
     opacity 0.85
     open-floating true
-    default-column-width { proportion 0.666; }
+    default-column-width { proportion 0.5; }
     default-window-height { proportion 0.666; }
 }
 
@@ -230,7 +230,7 @@ window-rule {
   match app-id="dev.noctalia.Noctalia.Settings"
   opacity 0.85
   open-floating true
-  default-column-width { proportion 0.666; }
+  default-column-width { proportion 0.5; }
   default-window-height { proportion 0.666; }
 }
 
@@ -258,14 +258,14 @@ binds {
     Super+W { toggle-window-floating; }
     Ctrl+Alt+Return { fullscreen-window; }
     Super+M { expand-column-to-available-width; }
-    Super+Shift+M { maximize-window-to-edges; }
 
     // App launchers
     Super+T { spawn "kitty"; }
     Super+F { spawn "librewolf"; }
-    Super+E { spawn "emacs"; }
+    Super+E { spawn-sh "emacs"; }
     Super+A { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
     Super+X { spawn "noctalia" "msg" "panel-toggle" "wallpaper"; }
+    Super+C { spawn "noctalia" "msg" "panel-toggle" "clipboard"; }
     Super+S { spawn-sh "grep '^Host ' ~/.ssh/config | grep -v '\\*' | awk '{print $2}' | fuzzel --dmenu | xargs -I{} kitty ssh {}"; }
 
     // Audio
@@ -286,11 +286,11 @@ binds {
     // Screenshots/Screensharing
     Super+P repeat=false { spawn-sh "wayfreeze --hide-cursor & WF_PID=$!; sleep 0.1; grim -g \"$(slurp)\" /tmp/screenshot.png; kill $WF_PID; swappy -f /tmp/screenshot.png; rm /tmp/screenshot.png"; }
     Super+Shift+P repeat=false { spawn-sh "grim - | swappy -f -"; }
-    Super+Alt+P repeat=false { spawn-sh "wl-mirror --fullscreen-output $(niri msg --json outputs | jq -r '[.[].name] | .[]' | grep -v $(niri msg --json focused-output | jq -r .name) | fuzzel --dmenu) $(niri msg --json focused-output | jq -r .name)"; }
+    Super+Alt+P repeat=false { spawn-sh "wl-mirror --fullscreen-output $(niri msg --json outputs | jq -r '.[].name' | grep -v $(niri msg --json focused-output | jq -r .name) | fuzzel --dmenu) $(niri msg --json focused-output | jq -r .name)"; }
 
     // Focus navigation
     Super+H { focus-column-left; }
-    Super+Left  { focus-column-left; }
+    Super+Left { focus-column-left; }
     Super+L { focus-column-right; }
     Super+Right { focus-column-right; }
     Super+K { focus-window-up; }

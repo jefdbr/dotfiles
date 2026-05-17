@@ -57,6 +57,8 @@
 
 (package! prisma-ts-mode :recipe (:host github :repo "nverno/prisma-ts-mode"))
 
+(package! kdl-mode)
+
 (package! claude-code-ide
   :recipe (:host github :repo "manzaltu/claude-code-ide.el"))
 
