@@ -4,6 +4,7 @@
 
 spawn-at-startup "noctalia"
 spawn-at-startup "xwayland-satellite"
+spawn-at-startup "systemctl" "--user" "import-environment" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP" "XDG_SESSION_TYPE"
 
 // ══════════════════════════════════════════
 //  INPUT
@@ -193,8 +194,11 @@ layer-rule {
 }
 
 layer-rule {
-  match namespace="^noctalia-(bar-main|panel)$"
-  opacity 0.85
+  match namespace="^noctalia-(bar-[^\"]+|notification|dock|panel)$"
+  background-effect {
+    xray false
+    blur true
+  }
 }
 
 // ══════════════════════════════════════════
@@ -240,8 +244,17 @@ window-rule {
 }
 
 window-rule {
+    match app-id="steam" title="^Friends List$"
+    open-floating true
+    default-column-width { proportion 0.5; }
+    default-window-height { proportion 0.666; }
+}
+
+window-rule {
     match app-id="^librewolf" title="^Picture-in-Picture$"
     open-floating true
+    default-column-width { proportion 0.5; }
+    default-window-height { proportion 0.666; }
 }
 
 // ══════════════════════════════════════════
