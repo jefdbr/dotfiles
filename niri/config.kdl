@@ -85,14 +85,15 @@ layout {
 
     default-column-width { proportion 1.0; }
 
-    focus-ring {
+    border {
       off
     }
 
-    border {
+    focus-ring {
       width 2
       active-color "#ffffff60"
       inactive-color "#ffffff20"
+      urgent-color "red"
     }
 
     shadow {
@@ -111,6 +112,8 @@ hotkey-overlay {
 
 prefer-no-csd
 
+screenshot-path "/tmp/screenshot.png"
+
 cursor {
     xcursor-size 24
 }
@@ -120,46 +123,12 @@ debug {
   honor-xdg-activation-with-invalid-serial
 }
 
-// ══════════════════════════════════════════
-//  ENVIRONMENT
-// ══════════════════════════════════════════
+animations {
+    slowdown 0.85
+}
 
 environment {
     XKB_DEFAULT_LAYOUT "be"
-}
-
-// ══════════════════════════════════════════
-//  ANIMATIONS
-// ══════════════════════════════════════════
-
-animations {
-    slowdown 0.85
-
-    workspace-switch {
-        spring damping-ratio=1.0 stiffness=1000 epsilon=0.0001
-    }
-
-    window-open {
-        duration-ms 150
-        curve "ease-out-expo"
-    }
-
-    window-close {
-        duration-ms 150
-        curve "ease-out-quad"
-    }
-
-    window-movement {
-        spring damping-ratio=1.0 stiffness=800 epsilon=0.0001
-    }
-
-    window-resize {
-        spring damping-ratio=1.0 stiffness=800 epsilon=0.0001
-    }
-
-    config-notification-open-close {
-        spring damping-ratio=0.6 stiffness=1000 epsilon=0.001
-    }
 }
 
 // ══════════════════════════════════════════
@@ -184,6 +153,8 @@ layer-rule {
 
 layer-rule {
   match namespace="^noctalia-(bar-[^\"]+|notification|dock|panel)$"
+  opacity 1.0
+
   background-effect {
     blur true
   }
@@ -197,6 +168,8 @@ window-rule {
   background-effect {
     xray false
   }
+
+  draw-border-with-background false
 }
 
 window-rule {
@@ -205,7 +178,7 @@ window-rule {
 }
 
 window-rule {
-    match app-id="^org\\.gnome\\.Nautilus$"
+    match app-id="Nautilus"
     opacity 0.85
     open-floating true
     default-column-width { proportion 0.5; }
@@ -239,6 +212,9 @@ window-rule {
 window-rule {
     match app-id="steam"
     open-floating true
+    focus-ring {
+        off
+    }
     default-column-width { proportion 0.5; }
     default-window-height { proportion 0.666; }
 }
@@ -246,6 +222,11 @@ window-rule {
 window-rule {
     match app-id="steam" title="^Steam$"
     open-floating false
+    focus-ring {
+        on
+    }
+    default-column-width { proportion 1.0; }
+    default-window-height { proportion 1.0; }
 }
 
 window-rule {
@@ -293,10 +274,15 @@ binds {
     XF86AudioNext  allow-when-locked=true { spawn "noctalia" "msg" "media" "next"; }
     XF86AudioPrev  allow-when-locked=true { spawn "noctalia" "msg" "media" "previous"; }
 
-    // Screenshots/Screensharing
-    Super+P repeat=false { spawn-sh "wayfreeze --hide-cursor & WF_PID=$!; sleep 0.1; grim -g \"$(slurp)\" /tmp/screenshot.png; kill $WF_PID; swappy -f /tmp/screenshot.png; rm /tmp/screenshot.png"; }
-    Super+Shift+P repeat=false { spawn-sh "grim - | swappy -f -"; }
-    Super+Alt+P repeat=false { spawn-sh "wl-mirror --fullscreen-output $(niri msg --json outputs | jq -r '.[].name' | grep -v $(niri msg --json focused-output | jq -r .name) | fuzzel --dmenu) $(niri msg --json focused-output | jq -r .name)"; }
+    Super+P repeat=false {
+        spawn-sh "rm -f /tmp/screenshot.png && niri msg action screenshot && while [ ! -f /tmp/screenshot.png ]; do sleep 0.05; done && swappy -f /tmp/screenshot.png";
+    }
+    Super+Shift+P repeat=false {
+        spawn-sh "rm -f /tmp/screenshot.png && niri msg action screenshot-screen && while [ ! -f /tmp/screenshot.png ]; do sleep 0.05; done && swappy -f /tmp/screenshot.png";
+    }
+    Super+Alt+P repeat=false {
+        spawn-sh "wl-mirror --fullscreen-output $(niri msg --json outputs | jq -r '.[].name' | grep -v $(niri msg --json focused-output | jq -r .name) | fuzzel --dmenu) $(niri msg --json focused-output | jq -r .name)";
+    }
 
     // Focus navigation
     Super+H { focus-column-left; }
