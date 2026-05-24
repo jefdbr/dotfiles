@@ -57,6 +57,9 @@
 (after! projectile
   (setq projectile-switch-project-action #'projectile-dired))
 
+(after! apheleia
+  (setq apheleia-remote-algorithm 'local))
+
 (use-package! msgpack)
 (use-package! tramp-rpc)
 (setq tramp-rpc-deploy-git-build-policy 'release)

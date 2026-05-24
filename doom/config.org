@@ -93,6 +93,9 @@ All your org files (agenda, notes, capture targets) should live here.
 
 (after! projectile
   (setq projectile-switch-project-action #'projectile-dired))
+
+(after! apheleia
+  (setq apheleia-remote-algorithm 'local))
 #+end_src
 * Packages
 ** rpc-tramp

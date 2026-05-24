@@ -3,7 +3,6 @@
 // ══════════════════════════════════════════
 
 spawn-at-startup "noctalia"
-spawn-at-startup "xwayland-satellite"
 spawn-at-startup "systemctl" "--user" "import-environment" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP" "XDG_SESSION_TYPE"
 
 // ══════════════════════════════════════════
@@ -163,16 +162,6 @@ animations {
     }
 }
 
-
-// ══════════════════════════════════════════
-//  GESTURES
-// ══════════════════════════════════════════
-
-gestures {
-    hot-corners {
-    }
-}
-
 // ══════════════════════════════════════════
 //  LAYER RULES
 // ══════════════════════════════════════════
@@ -196,7 +185,6 @@ layer-rule {
 layer-rule {
   match namespace="^noctalia-(bar-[^\"]+|notification|dock|panel)$"
   background-effect {
-    xray false
     blur true
   }
 }
@@ -207,7 +195,6 @@ layer-rule {
 
 window-rule {
   background-effect {
-    blur true
     xray false
   }
 }
@@ -223,11 +210,17 @@ window-rule {
     open-floating true
     default-column-width { proportion 0.5; }
     default-window-height { proportion 0.666; }
+    background-effect {
+        blur true
+    }
 }
 
 window-rule {
     match app-id="kitty"
     opacity 0.85
+    background-effect {
+        blur true
+    }
 }
 
 window-rule {
@@ -244,17 +237,20 @@ window-rule {
 }
 
 window-rule {
-    match app-id="steam" title="^Friends List$"
+    match app-id="steam"
     open-floating true
     default-column-width { proportion 0.5; }
     default-window-height { proportion 0.666; }
 }
 
 window-rule {
+    match app-id="steam" title="^Steam$"
+    open-floating false
+}
+
+window-rule {
     match app-id="^librewolf" title="^Picture-in-Picture$"
     open-floating true
-    default-column-width { proportion 0.5; }
-    default-window-height { proportion 0.666; }
 }
 
 // ══════════════════════════════════════════
@@ -275,7 +271,7 @@ binds {
     // App launchers
     Super+T { spawn "kitty"; }
     Super+F { spawn "librewolf"; }
-    Super+E { spawn-sh "emacs"; }
+    Super+E { spawn "emacs"; }
     Super+A { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
     Super+X { spawn "noctalia" "msg" "panel-toggle" "wallpaper"; }
     Super+C { spawn "noctalia" "msg" "panel-toggle" "clipboard"; }
