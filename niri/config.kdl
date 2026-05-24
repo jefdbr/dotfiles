@@ -249,9 +249,10 @@ window-rule {
 }
 
 window-rule {
-    match app-id="^librewolf" title="^Picture-in-Picture$"
+    match app-id="^librewolf$"
     open-floating true
 }
+
 
 // ══════════════════════════════════════════
 //  KEY BINDINGS
@@ -270,7 +271,7 @@ binds {
 
     // App launchers
     Super+T { spawn "kitty"; }
-    Super+F { spawn "librewolf"; }
+    Super+F { spawn-sh "librewolf & niri msg --json event-stream | while read -r line; do echo \"$line\" | jq -e '.WindowOpenedOrChanged.window | select(.app_id == \"librewolf\")' > /dev/null 2>&1 && niri msg action move-window-to-tiling && niri msg action maximize-column && break; done"; }
     Super+E { spawn "emacs"; }
     Super+A { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
     Super+X { spawn "noctalia" "msg" "panel-toggle" "wallpaper"; }
