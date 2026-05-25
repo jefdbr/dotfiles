@@ -92,7 +92,7 @@ layout {
     focus-ring {
       width 2
       active-color "#ffffff60"
-      inactive-color "#ffffff20"
+      inactive-color "#ffffff00"
       urgent-color "red"
     }
 
@@ -197,20 +197,19 @@ window-rule {
 }
 
 window-rule {
-  match app-id="dev.noctalia.Noctalia.Settings"
-  opacity 0.85
-  open-floating true
-  default-column-width { proportion 0.5; }
-  default-window-height { proportion 0.666; }
-}
-
-window-rule {
-    match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
-    default-floating-position x=10 y=10 relative-to="bottom-right"
+    match app-id="dev.noctalia.Noctalia.Settings"
+    opacity 0.85
+    background-effect {
+        blur true
+    }
+    open-floating true
+    default-column-width { proportion 0.5; }
+    default-window-height { proportion 0.666; }
 }
 
 window-rule {
     match app-id="steam"
+    exclude title="^[Ss]team$"
     open-floating true
     focus-ring {
         off
@@ -220,13 +219,8 @@ window-rule {
 }
 
 window-rule {
-    match app-id="steam" title="^Steam$"
-    open-floating false
-    focus-ring {
-        on
-    }
-    default-column-width { proportion 1.0; }
-    default-window-height { proportion 1.0; }
+    match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
+    default-floating-position x=10 y=10 relative-to="bottom-right"
 }
 
 window-rule {
@@ -240,6 +234,11 @@ window-rule {
 // ══════════════════════════════════════════
 
 binds {
+    Alt+h { spawn "wtype" "-k" "Left"; }
+    Alt+l { spawn "wtype" "-k" "Right"; }
+    Alt+j { spawn "wtype" "-k" "Down"; }
+    Alt+k { spawn "wtype" "-k" "Up"; }
+
     // Window/ Session
     Super+Q { close-window; }
     Super+Ctrl+Shift+Q {
@@ -253,6 +252,7 @@ binds {
     // App launchers
     Super+T { spawn "kitty"; }
     Super+F { spawn-sh "librewolf & niri msg --json event-stream | while read -r line; do echo \"$line\" | jq -e '.WindowOpenedOrChanged.window | select(.app_id == \"librewolf\")' > /dev/null 2>&1 && niri msg action move-window-to-tiling && niri msg action maximize-column && break; done"; }
+    Super+Shift+F { spawn "helium"; }
     Super+E { spawn "emacs"; }
     Super+A { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
     Super+X { spawn "noctalia" "msg" "panel-toggle" "wallpaper"; }
