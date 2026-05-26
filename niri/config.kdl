@@ -2,7 +2,7 @@
 //  AUTOSTART
 // ══════════════════════════════════════════
 
-spawn-at-startup "noctalia && noctalia msg screen-lock"
+spawn-at-startup "noctalia"
 spawn-at-startup "systemctl" "--user" "import-environment" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP" "XDG_SESSION_TYPE"
 
 // ══════════════════════════════════════════
