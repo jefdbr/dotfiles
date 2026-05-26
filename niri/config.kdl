@@ -2,7 +2,7 @@
 //  AUTOSTART
 // ══════════════════════════════════════════
 
-spawn-at-startup "noctalia"
+spawn-at-startup "noctalia && noctalia msg screen-lock"
 spawn-at-startup "systemctl" "--user" "import-environment" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP" "XDG_SESSION_TYPE"
 
 // ══════════════════════════════════════════
@@ -259,20 +259,15 @@ binds {
     Super+C { spawn "noctalia" "msg" "panel-toggle" "clipboard"; }
     Super+S { spawn-sh "grep '^Host ' ~/.ssh/config | grep -v '\\*' | awk '{print $2}' | fuzzel --dmenu | xargs -I{} kitty ssh {}"; }
 
-    // Audio
-    XF86AudioRaiseVolume allow-when-locked=true { spawn "noctalia" "msg" "volume-up"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn "noctalia" "msg" "volume-down"; }
-    XF86AudioMute        allow-when-locked=true { spawn "noctalia" "msg" "volume-mute"; }
-
-    // rightness
+    XF86AudioRaiseVolume  allow-when-locked=true { spawn "noctalia" "msg" "volume-up"; }
+    XF86AudioLowerVolume  allow-when-locked=true { spawn "noctalia" "msg" "volume-down"; }
+    XF86AudioMute         allow-when-locked=true { spawn "noctalia" "msg" "volume-mute"; }
     XF86MonBrightnessUp   allow-when-locked=true { spawn "noctalia" "msg" "brightness-up"; }
     XF86MonBrightnessDown allow-when-locked=true { spawn "noctalia" "msg" "brightness-down"; }
-
-    // Media
-    XF86AudioPlay  allow-when-locked=true { spawn "noctalia" "msg" "media" "toggle"; }
-    XF86AudioPause allow-when-locked=true { spawn "noctalia" "msg" "media" "toggle"; }
-    XF86AudioNext  allow-when-locked=true { spawn "noctalia" "msg" "media" "next"; }
-    XF86AudioPrev  allow-when-locked=true { spawn "noctalia" "msg" "media" "previous"; }
+    XF86AudioPlay         allow-when-locked=true { spawn "noctalia" "msg" "media" "toggle"; }
+    XF86AudioPause        allow-when-locked=true { spawn "noctalia" "msg" "media" "toggle"; }
+    XF86AudioNext         allow-when-locked=true { spawn "noctalia" "msg" "media" "next"; }
+    XF86AudioPrev         allow-when-locked=true { spawn "noctalia" "msg" "media" "previous"; }
 
     Super+P repeat=false {
         spawn-sh "rm -f /tmp/screenshot.png && niri msg action screenshot && while [ ! -f /tmp/screenshot.png ]; do sleep 0.05; done && swappy -f /tmp/screenshot.png";
