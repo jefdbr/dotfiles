@@ -96,6 +96,9 @@ All your org files (agenda, notes, capture targets) should live here.
 
 (after! apheleia
   (setq apheleia-remote-algorithm 'local))
+
+(after! lsp-tailwindcss
+  (setq lsp-tailwindcss-major-modes '()))
 #+end_src
 * Packages
 ** rpc-tramp
@@ -148,4 +151,59 @@ Provides tree-sitter highlighting, LSP and formatting for =.prisma= files.
     :activation-fn (lsp-activate-on "prisma")
     :server-id 'prisma-ls)))
 (add-hook 'prisma-ts-mode-hook #'lsp-deferred)
+#+end_src
+
+
+* custom
+** taildrop
+#+begin_src emacs-lisp
+(after! dired
+  (defun taildrop--get-devices ()
+  (split-string
+   (shell-command-to-string
+    "tailscale status --json | jq -r '.Peer[] | select(.Online == true and .TaildropTarget == 1) | .HostName'")
+   "\n" t))
+
+  (defun taildrop-send-file (device)
+    (interactive (list (completing-read "Device: " (taildrop--get-devices))))
+    (let* ((files      (dired-get-marked-files))
+           (total      (length (seq-filter #'file-regular-p files)))
+           (count-cell (list 0))
+           (dired-buf  (current-buffer)))
+
+      (pop-to-buffer (get-buffer-create "*taildrop*")
+                     '(display-buffer-at-bottom (window-height . 0.2)))
+
+      (with-current-buffer dired-buf
+        (dired-unmark-all-marks))
+
+      (dolist (file files)
+        (if (file-directory-p file)
+
+            (with-current-buffer (get-buffer-create "*taildrop*")
+              (insert (format "skipped directory: %s\n"
+                              (file-name-nondirectory
+                               (directory-file-name file)))))
+
+          (make-process
+           :name    "taildrop"
+           :command (list "tailscale" "file" "cp" file (format "%s:" device))
+           :sentinel
+           (lambda (proc event)
+             (when (string-match-p "finished" event)
+               (cl-incf (car count-cell))
+               (with-current-buffer (get-buffer-create "*taildrop*")
+                 (insert (format "[%d/%d] sent %s to %s\n"
+                                 (car count-cell) total
+                                 (file-name-nondirectory file)
+                                 device)))
+               (when (= (car count-cell) total)
+                 (run-at-time 2 nil
+                   (lambda ()
+                     (when-let (win (get-buffer-window "*taildrop*"))
+                       (delete-window win))
+                     (kill-buffer "*taildrop*")))))))))))
+
+  (map! :map dired-mode-map
+        :n "C-c t" #'taildrop-send-file))
 #+end_src

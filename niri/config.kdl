@@ -3,7 +3,6 @@
 // ══════════════════════════════════════════
 
 spawn-at-startup "noctalia"
-spawn-at-startup "systemctl" "--user" "import-environment" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP" "XDG_SESSION_TYPE"
 
 // ══════════════════════════════════════════
 //  INPUT
@@ -41,13 +40,13 @@ input {
 output "HP Inc. OMEN 27qs CNC40417HS" {
     mode "2560x1440@239.998"
     scale 1
-    position x=1920 y=0
+    position x=0 y=0
 }
 
 output "PNP(BNQ) ZOWIE XL LCD B4K01146SL0" {
     mode "1920x1080@60"
     scale 1
-    position x=0 y=180
+    position x=-1920 y=180
 }
 
 output "BOE 0x0A06 Unknown" {
@@ -142,12 +141,8 @@ layer-rule {
 }
 
 layer-rule {
-    match namespace="^noctalia-overview"
-    place-within-backdrop true
-}
-
-layer-rule {
   match namespace="^noctalia-wallpaper*"
+  match namespace="^noctalia-overview"
   place-within-backdrop true
 }
 
@@ -178,30 +173,20 @@ window-rule {
 }
 
 window-rule {
-    match app-id="Nautilus"
-    opacity 0.85
-    open-floating true
-    default-column-width { proportion 0.5; }
-    default-window-height { proportion 0.666; }
-    background-effect {
-        blur true
-    }
-}
-
-window-rule {
     match app-id="kitty"
-    opacity 0.85
-    background-effect {
-        blur true
-    }
-}
-
-window-rule {
+    match app-id="Nautilus"
     match app-id="dev.noctalia.Noctalia.Settings"
     opacity 0.85
     background-effect {
         blur true
     }
+}
+
+window-rule {
+    match app-id="Nautilus"
+    match app-id="dev.noctalia.Noctalia.Settings"
+    match app-id="steam"
+    exclude title="^[Ss]team$"
     open-floating true
     default-column-width { proportion 0.5; }
     default-window-height { proportion 0.666; }
@@ -210,12 +195,9 @@ window-rule {
 window-rule {
     match app-id="steam"
     exclude title="^[Ss]team$"
-    open-floating true
     focus-ring {
         off
     }
-    default-column-width { proportion 0.5; }
-    default-window-height { proportion 0.666; }
 }
 
 window-rule {
@@ -226,6 +208,11 @@ window-rule {
 window-rule {
     match app-id="^librewolf$"
     open-floating true
+}
+
+window-rule {
+    match app-id="steam_app_252950"
+    // allow-tearing true
 }
 
 
@@ -247,13 +234,13 @@ binds {
     Super+BackSpace { spawn "noctalia" "msg" "panel-toggle" "session"; }
     Super+W { toggle-window-floating; }
     Ctrl+Alt+Return { fullscreen-window; }
-    Super+M { expand-column-to-available-width; }
+    Super+Z { expand-column-to-available-width; }
 
     // App launchers
     Super+T { spawn "kitty"; }
     Super+F { spawn-sh "librewolf & niri msg --json event-stream | while read -r line; do echo \"$line\" | jq -e '.WindowOpenedOrChanged.window | select(.app_id == \"librewolf\")' > /dev/null 2>&1 && niri msg action move-window-to-tiling && niri msg action maximize-column && break; done"; }
     Super+Shift+F { spawn "helium"; }
-    Super+E { spawn "emacs"; }
+    Super+E { spawn "emacsclient" "-c" "-a" ""; }
     Super+A { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
     Super+X { spawn "noctalia" "msg" "panel-toggle" "wallpaper"; }
     Super+C { spawn "noctalia" "msg" "panel-toggle" "clipboard"; }
