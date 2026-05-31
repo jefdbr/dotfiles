@@ -148,7 +148,6 @@ layer-rule {
 
 layer-rule {
   match namespace="^noctalia-(bar-[^\"]+|notification|dock|panel)$"
-  opacity 1.0
 
   background-effect {
     blur true
@@ -232,7 +231,7 @@ binds {
         spawn "sh" "-c" "kill -9 $(niri msg --json focused-window | jq .pid)";
     }
     Super+BackSpace { spawn "noctalia" "msg" "panel-toggle" "session"; }
-    Super+W { toggle-window-floating; }
+    Super+W { spawn-sh "niri msg action toggle-window-floating && niri msg action expand-column-to-available-width"; }
     Ctrl+Alt+Return { fullscreen-window; }
     Super+Z { expand-column-to-available-width; }
 
