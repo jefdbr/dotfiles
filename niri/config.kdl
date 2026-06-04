@@ -150,7 +150,7 @@ layer-rule {
   match namespace="^noctalia-(bar-[^\"]+|notification|dock|panel)$"
 
   background-effect {
-    blur true
+    blur false
   }
 }
 
@@ -224,6 +224,11 @@ binds {
     Alt+l { spawn "wtype" "-k" "Right"; }
     Alt+j { spawn "wtype" "-k" "Down"; }
     Alt+k { spawn "wtype" "-k" "Up"; }
+    // Alt Gr
+    Mod5+h { spawn "wtype" "-k" "Left"; }
+    Mod5+l { spawn "wtype" "-k" "Right"; }
+    Mod5+j { spawn "wtype" "-k" "Down"; }
+    Mod5+k { spawn "wtype" "-k" "Up"; }
 
     // Window/ Session
     Super+Q { close-window; }
@@ -243,6 +248,7 @@ binds {
     Super+A { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
     Super+X { spawn "noctalia" "msg" "panel-toggle" "wallpaper"; }
     Super+C { spawn "noctalia" "msg" "panel-toggle" "clipboard"; }
+    Super+Shift+L { spawn "noctalia" "msg" "session" "lock"; }
     Super+S { spawn-sh "grep '^Host ' ~/.ssh/config | grep -v '\\*' | awk '{print $2}' | fuzzel --dmenu | xargs -I{} kitty ssh {}"; }
 
     XF86AudioRaiseVolume  allow-when-locked=true { spawn "noctalia" "msg" "volume-up"; }
@@ -256,10 +262,10 @@ binds {
     XF86AudioPrev         allow-when-locked=true { spawn "noctalia" "msg" "media" "previous"; }
 
     Super+P repeat=false {
-        spawn-sh "rm -f /tmp/screenshot.png && niri msg action screenshot && while [ ! -f /tmp/screenshot.png ]; do sleep 0.05; done && swappy -f /tmp/screenshot.png";
+        spawn-sh "rm -f /tmp/screenshot.png && niri msg action screenshot -p false && while [ ! -f /tmp/screenshot.png ]; do sleep 0.05; done && swappy -f /tmp/screenshot.png";
     }
     Super+Shift+P repeat=false {
-        spawn-sh "rm -f /tmp/screenshot.png && niri msg action screenshot-screen && while [ ! -f /tmp/screenshot.png ]; do sleep 0.05; done && swappy -f /tmp/screenshot.png";
+        spawn-sh "rm -f /tmp/screenshot.png && niri msg action screenshot-screen -p false && while [ ! -f /tmp/screenshot.png ]; do sleep 0.05; done && swappy -f /tmp/screenshot.png";
     }
     Super+Alt+P repeat=false {
         spawn-sh "wl-mirror --fullscreen-output $(niri msg --json outputs | jq -r '.[].name' | grep -v $(niri msg --json focused-output | jq -r .name) | fuzzel --dmenu) $(niri msg --json focused-output | jq -r .name)";

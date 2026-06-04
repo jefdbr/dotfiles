@@ -62,9 +62,6 @@ timeout = 0
 enabled = true
 temperature_night = 3500
 
-[noctalia_state]
-setup_wizard_completed = true
-
 [shell]
 clipboard_image_action_command = "swappy -f -"
 corner_radius_scale = 0.5000000074505806
@@ -78,8 +75,6 @@ telemetry_enabled = true
     speed = 1.5
 
     [shell.panel]
-    attach_clipboard = true
-    attach_launcher = true
     clipboard_placement = "attached"
     launcher_placement = "attached"
     open_near_click_control_center = true
@@ -143,7 +138,6 @@ fill_mode = "stretch"
     path = "/home/jeffrey/Pictures/Wallpapers/hanged_man_tree.jpg"
 
 [weather]
-address = "Wielsbeke, Belgium"
 enabled = true
 unit = "celsius"
 
@@ -153,11 +147,9 @@ mirrored = false
 
 [widget.battery]
 capsule = true
-capsule_group = ""
 
 [widget.bluetooth]
 capsule = true
-capsule_group = ""
 
 [widget.bongocat]
 script = "scripts/bongocat.lua"
@@ -184,7 +176,6 @@ hide_when_no_media = true
 
 [widget.network]
 capsule = true
-capsule_group = ""
 show_label = false
 
 [widget.screen_recorder]
@@ -226,7 +217,6 @@ pinned = [ "steam" ]
 
 [widget.volume]
 capsule = true
-capsule_group = ""
 show_label = false
 
 [widget.weather]

@@ -52,11 +52,19 @@ All your org files (agenda, notes, capture targets) should live here.
 #+end_src
 
 * Keybindings
-** Tab Naviration (Centaur Tabs)
+** Tab navigation (Centaur Tabs)
 
 #+begin_src emacs-lisp
 (map! :g "M-H" #'centaur-tabs-backward
       :g "M-L" #'centaur-tabs-forward)
+#+end_src
+** Workspace naviration
+
+#+begin_src emacs-lisp
+(map! :leader
+      :prefix "TAB"
+      :desc "Previous workspace" "h" #'+workspace/switch-left
+      :desc "Next workspace"     "l" #'+workspace/switch-right)
 #+end_src
 
 ** Find File
@@ -82,6 +90,22 @@ All your org files (agenda, notes, capture targets) should live here.
 (map! "C-S-v" (cmd! (insert (shell-command-to-string "wl-paste -n"))))
 #+end_src
 
+** resize buffers
+#+begin_src emacs-lisp
+(defun doom/window-resize-map ()
+  (interactive)
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "h") (lambda () (interactive) (evil-window-decrease-width 2)))
+    (define-key map (kbd "l") (lambda () (interactive) (evil-window-increase-width 2)))
+    (define-key map (kbd "j") (lambda () (interactive) (evil-window-decrease-height 2)))
+    (define-key map (kbd "k") (lambda () (interactive) (evil-window-increase-height 2)))
+    (set-transient-map map t)))
+
+(map! :leader
+      :prefix "w"
+      "r" nil
+      :desc "Resize window" "r" #'doom/window-resize-map)
+#+end_src
 * Evil
 #+begin_src emacs-lisp
 (setq evil-ex-visual-char-range nil

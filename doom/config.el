@@ -34,6 +34,11 @@
       :g "M-L" #'centaur-tabs-forward)
 
 (map! :leader
+      :prefix "TAB"
+      :desc "Previous workspace" "h" #'+workspace/switch-left
+      :desc "Next workspace"     "l" #'+workspace/switch-right)
+
+(map! :leader
       "SPC" #'find-file)
 
 (after! vterm
@@ -46,6 +51,20 @@
       "M-<escape>" #'vterm-send-escape)
 
 (map! "C-S-v" (cmd! (insert (shell-command-to-string "wl-paste -n"))))
+
+(defun doom/window-resize-map ()
+  (interactive)
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "h") (lambda () (interactive) (evil-window-decrease-width 2)))
+    (define-key map (kbd "l") (lambda () (interactive) (evil-window-increase-width 2)))
+    (define-key map (kbd "j") (lambda () (interactive) (evil-window-decrease-height 2)))
+    (define-key map (kbd "k") (lambda () (interactive) (evil-window-increase-height 2)))
+    (set-transient-map map t)))
+
+(map! :leader
+      :prefix "w"
+      "r" nil
+      :desc "Resize window" "r" #'doom/window-resize-map)
 
 (setq evil-ex-visual-char-range nil
       ;evil-ex-complete-emacs-commands nil
