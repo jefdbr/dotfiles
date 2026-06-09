@@ -58,7 +58,7 @@ All your org files (agenda, notes, capture targets) should live here.
 (map! :g "M-H" #'centaur-tabs-backward
       :g "M-L" #'centaur-tabs-forward)
 #+end_src
-** Workspace naviration
+** Workspace navigation
 
 #+begin_src emacs-lisp
 (map! :leader

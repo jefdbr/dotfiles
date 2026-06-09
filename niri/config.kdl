@@ -147,10 +147,10 @@ layer-rule {
 }
 
 layer-rule {
-  match namespace="^noctalia-(bar-[^\"]+|notification|dock|panel)$"
+  match namespace="^noctalia-(bar-[^\"]+|notification|dock|panel|osd)$"
 
   background-effect {
-    blur false
+    blur true
   }
 }
 
@@ -164,17 +164,13 @@ window-rule {
   }
 
   draw-border-with-background false
-}
-
-window-rule {
-    geometry-corner-radius 10
-    clip-to-geometry true
+  geometry-corner-radius 10
+  clip-to-geometry true
 }
 
 window-rule {
     match app-id="kitty"
     match app-id="Nautilus"
-    match app-id="dev.noctalia.Noctalia.Settings"
     opacity 0.85
     background-effect {
         blur true
@@ -248,7 +244,6 @@ binds {
     Super+A { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
     Super+X { spawn "noctalia" "msg" "panel-toggle" "wallpaper"; }
     Super+C { spawn "noctalia" "msg" "panel-toggle" "clipboard"; }
-    Super+Shift+L { spawn "noctalia" "msg" "session" "lock"; }
     Super+S { spawn-sh "grep '^Host ' ~/.ssh/config | grep -v '\\*' | awk '{print $2}' | fuzzel --dmenu | xargs -I{} kitty ssh {}"; }
 
     XF86AudioRaiseVolume  allow-when-locked=true { spawn "noctalia" "msg" "volume-up"; }
@@ -271,56 +266,37 @@ binds {
         spawn-sh "wl-mirror --fullscreen-output $(niri msg --json outputs | jq -r '.[].name' | grep -v $(niri msg --json focused-output | jq -r .name) | fuzzel --dmenu) $(niri msg --json focused-output | jq -r .name)";
     }
 
-    // Focus navigation
-    Super+H { focus-column-left; }
-    Super+Left { focus-column-left; }
-    Super+L { focus-column-right; }
-    Super+Right { focus-column-right; }
-    Super+K { focus-window-up; }
-    Super+Up { focus-window-up; }
-    Super+J { focus-window-down; }
-    Super+Down { focus-window-down; }
-
-    // Workspace/ monitor navigation
-    Super+Ctrl+H { focus-monitor-left; }
-    Super+Ctrl+Left  { focus-monitor-left; }
-    Super+Ctrl+L { focus-monitor-right; }
-    Super+Ctrl+Right { focus-monitor-right; }
-    Super+Ctrl+K { focus-workspace-up; }
-    Super+Ctrl+Up { focus-workspace-up; }
-    Super+Ctrl+J { focus-workspace-down; }
-    Super+Ctrl+Down { focus-workspace-down; }
     Super+O { toggle-overview; }
 
-    // Move window to workspace
-    Super+Ctrl+Alt+H { move-column-to-monitor-left; }
-    Super+Ctrl+Alt+Left { move-column-to-monitor-left; }
-    Super+Ctrl+Alt+L { move-column-to-monitor-right; }
-    Super+Ctrl+Alt+Right { move-column-to-monitor-right; }
-    Super+Ctrl+Alt+K { move-column-to-workspace-up; }
-    Super+Ctrl+Alt+Up { move-column-to-workspace-up; }
-    Super+Ctrl+Alt+J { move-column-to-workspace-down; }
-    Super+Ctrl+Alt+Down { move-column-to-workspace-down; }
+    // Focus navigation
+    Super+H { focus-column-or-monitor-left; }
+    Super+Left { focus-column-or-monitor-left; }
+    Super+L { focus-column-or-monitor-right; }
+    Super+Right { focus-column-or-monitor-right; }
+    Super+K { focus-window-or-workspace-up; }
+    Super+Up { focus-window-or-workspace-up; }
+    Super+J { focus-window-or-workspace-down; }
+    Super+Down { focus-window-or-workspace-down; }
 
-    // Move windows
-    Super+Alt+H { move-column-left; }
-    Super+Alt+Left { move-column-left; }
-    Super+Alt+L { move-column-right; }
-    Super+Alt+Right { move-column-right; }
-    Super+Alt+K { move-window-up; }
-    Super+Alt+Up { move-window-up; }
-    Super+Alt+J { move-window-down; }
-    Super+Alt+Down { move-window-down; }
+    // Move stuff
+    Super+Alt+H { move-column-left-or-to-monitor-left; }
+    Super+Alt+Left { move-column-left-or-to-monitor-left; }
+    Super+Alt+L { move-column-right-or-to-monitor-right; }
+    Super+Alt+Right { move-column-right-or-to-monitor-right; }
+    Super+Alt+K { move-window-up-or-to-workspace-up; }
+    Super+Alt+Up { move-window-up-or-to-workspace-up; }
+    Super+Alt+J { move-window-down-or-to-workspace-down; }
+    Super+Alt+Down { move-window-down-or-to-workspace-down; }
 
     // Consume/ Expel
-    Super+Alt+Shift+H { consume-or-expel-window-left; }
-    Super+Alt+Shift+Left { consume-or-expel-window-left; }
-    Super+Alt+Shift+L { consume-or-expel-window-right; }
-    Super+Alt+Shift+Right { consume-or-expel-window-right; }
-    Super+Alt+Shift+K { move-window-up; }
-    Super+Alt+Shift+Up { move-window-up; }
-    Super+Alt+Shift+J { move-window-down; }
-    Super+Alt+Shift+Down { move-window-down; }
+    Super+Shift+H { consume-or-expel-window-left; }
+    Super+Shift+Left { consume-or-expel-window-left; }
+    Super+Shift+L { consume-or-expel-window-right; }
+    Super+Shift+Right { consume-or-expel-window-right; }
+    Super+Shift+K { move-window-up; }
+    Super+Shift+Up { move-window-up; }
+    Super+Shift+J { move-window-down; }
+    Super+Shift+Down { move-window-down; }
 
     // Column/ window sizing
     Super+R { switch-preset-column-width; }
