@@ -151,10 +151,6 @@ capsule = true
 [widget.bluetooth]
 capsule = true
 
-[widget.bongocat]
-script = "scripts/bongocat.lua"
-type = "scripted"
-
 [widget.clock]
 anchor = true
 capsule = true
@@ -177,27 +173,6 @@ hide_when_no_media = true
 [widget.network]
 capsule = true
 show_label = false
-
-[widget.screen_recorder]
-audio_codec = "opus"
-audio_source = "default_output"
-color_range = "limited"
-copy_to_clipboard = false
-directory = "/home/jeffrey/Videos/Recordings/"
-filename_pattern = "recording_%Y%m%d_%H%M%S"
-frame_rate = 60
-hide_inactive = false
-quality = "very_high"
-replay_duration = 30
-replay_enabled = false
-replay_storage = "ram"
-resolution = "original"
-restore_portal = false
-script = "scripts/screen_recorder.lua"
-show_cursor = true
-type = "scripted"
-video_codec = "h264"
-video_source = "portal"
 
 [widget.taskbar]
 capsule = true
@@ -224,7 +199,6 @@ show_condition = false
 
 [widget.workspaces]
 capsule = false
-display = "none"
 hide_when_empty = true
 occupied_color = "on_primary"
 pill_scale = 0.75
