@@ -82,6 +82,13 @@
 (after! lsp-tailwindcss
   (setq lsp-tailwindcss-major-modes '()))
 
+(after! treesit
+  (add-to-list 'treesit-language-source-alist
+               '(kdl "https://github.com/tree-sitter-grammars/tree-sitter-kdl" "v1.1.0" "src")))
+
+(setq proof-three-window-mode-policy 'hybrid)
+(add-hook 'proof-activate-scripting-hook #'proof-layout-windows)
+
 (use-package! msgpack)
 (use-package! tramp-rpc)
 (setq tramp-rpc-deploy-git-build-policy 'release)

@@ -123,6 +123,13 @@ All your org files (agenda, notes, capture targets) should live here.
 
 (after! lsp-tailwindcss
   (setq lsp-tailwindcss-major-modes '()))
+
+(after! treesit
+  (add-to-list 'treesit-language-source-alist
+               '(kdl "https://github.com/tree-sitter-grammars/tree-sitter-kdl" "v1.1.0" "src")))
+
+(setq proof-three-window-mode-policy 'hybrid)
+(add-hook 'proof-activate-scripting-hook #'proof-layout-windows)
 #+end_src
 * Packages
 ** rpc-tramp
