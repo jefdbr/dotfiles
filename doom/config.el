@@ -92,6 +92,7 @@
 (use-package! msgpack)
 (use-package! tramp-rpc)
 (setq tramp-rpc-deploy-git-build-policy 'release)
+(setq tramp-remote-path '(tramp-own-remote-path))
 
 (use-package! claude-code-ide
   :bind ("C-c C-g" . claude-code-ide-menu) ; Set your favorite keybinding

@@ -137,6 +137,7 @@ All your org files (agenda, notes, capture targets) should live here.
 (use-package! msgpack)
 (use-package! tramp-rpc)
 (setq tramp-rpc-deploy-git-build-policy 'release)
+(setq tramp-remote-path '(tramp-own-remote-path))
 #+end_src
 ** Claude
 #+begin_src emacs-lisp
