@@ -124,6 +124,13 @@
     :server-id 'prisma-ls)))
 (add-hook 'prisma-ts-mode-hook #'lsp-deferred)
 
+(after! dap-mode
+  (require 'dap-gdb nil t)
+  (setq dap-gdb-debug-program '("rust-gdb" "-i" "dap")))
+
+(after! lsp-rust
+  (require 'dap-gdb nil t))
+
 (after! dired
   (defun taildrop--get-devices ()
   (split-string

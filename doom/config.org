@@ -185,6 +185,16 @@ Provides tree-sitter highlighting, LSP and formatting for =.prisma= files.
 (add-hook 'prisma-ts-mode-hook #'lsp-deferred)
 #+end_src
 
+** gdb
+#+begin_src emacs-lisp
+(after! dap-mode
+  (require 'dap-gdb nil t)
+  (setq dap-gdb-debug-program '("rust-gdb" "-i" "dap")))
+
+(after! lsp-rust
+  (require 'dap-gdb nil t))
+#+end_src
+
 
 * custom
 ** taildrop
