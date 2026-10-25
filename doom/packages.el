@@ -63,3 +63,5 @@
   :recipe (:host github :repo "manzaltu/claude-code-ide.el"))
 
 (package! caddyfile-mode)
+
+(unpin! dap-mode)
