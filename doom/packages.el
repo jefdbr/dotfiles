@@ -53,7 +53,9 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;; (unpin! t)
 
-(package! tramp-rpc :recipe (:host github :repo "ArthurHeymans/emacs-tramp-rpc"))
+(package! tramp-rpc
+  :recipe (:host github :repo "ArthurHeymans/emacs-tramp-rpc")
+  :pin "543b3bf30b8a80b8cd0200c98d00f22a4e0220ac")
 
 (package! prisma-ts-mode :recipe (:host github :repo "nverno/prisma-ts-mode"))
 
