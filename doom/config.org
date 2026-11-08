@@ -42,15 +42,6 @@
 (setq display-line-numbers-type 'relative)
 #+end_src
 
-* Org-mode
-This must be set *before* org loads — do not wrap it in =after!=.
-All your org files (agenda, notes, capture targets) should live here.
-
-#+begin_src emacs-lisp
-(setq org-directory "~/org/")
-(setq org-agenda-files '("~/org/agenda.org"))
-#+end_src
-
 * Keybindings
 ** Tab navigation (Centaur Tabs)
 
@@ -71,23 +62,6 @@ All your org files (agenda, notes, capture targets) should live here.
 #+begin_src emacs-lisp
 (map! :leader
       "SPC" #'find-file)
-#+end_src
-
-** vterm
-#+begin_src emacs-lisp
-(after! vterm
-  (define-key vterm-mode-map (kbd "C-S-v")
-    (lambda () (interactive)
-      (vterm-send-string (shell-command-to-string "wl-paste -n")))))
-
-(map! :after vterm
-      :map vterm-mode-map
-      "M-<escape>" #'vterm-send-escape)
-#+end_src
-
-** wl-paste
-#+begin_src emacs-lisp
-(map! "C-S-v" (cmd! (insert (shell-command-to-string "wl-paste -n"))))
 #+end_src
 
 ** resize buffers
@@ -138,13 +112,6 @@ All your org files (agenda, notes, capture targets) should live here.
 (use-package! tramp-rpc)
 (setq tramp-rpc-deploy-git-build-policy 'release)
 (setq tramp-remote-path '(tramp-own-remote-path))
-#+end_src
-** Claude
-#+begin_src emacs-lisp
-(use-package! claude-code-ide
-  :bind ("C-c C-g" . claude-code-ide-menu) ; Set your favorite keybinding
-  :config
-  (claude-code-ide-emacs-tools-setup)) ; Optionally enable Emacs MCP tools
 #+end_src
 ** Caddyfile-mode
 #+begin_src emacs-lisp

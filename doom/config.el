@@ -27,9 +27,6 @@
 
 (setq display-line-numbers-type 'relative)
 
-(setq org-directory "~/org/")
-(setq org-agenda-files '("~/org/agenda.org"))
-
 (map! :g "M-H" #'centaur-tabs-backward
       :g "M-L" #'centaur-tabs-forward)
 
@@ -40,17 +37,6 @@
 
 (map! :leader
       "SPC" #'find-file)
-
-(after! vterm
-  (define-key vterm-mode-map (kbd "C-S-v")
-    (lambda () (interactive)
-      (vterm-send-string (shell-command-to-string "wl-paste -n")))))
-
-(map! :after vterm
-      :map vterm-mode-map
-      "M-<escape>" #'vterm-send-escape)
-
-(map! "C-S-v" (cmd! (insert (shell-command-to-string "wl-paste -n"))))
 
 (defun doom/window-resize-map ()
   (interactive)
@@ -93,11 +79,6 @@
 (use-package! tramp-rpc)
 (setq tramp-rpc-deploy-git-build-policy 'release)
 (setq tramp-remote-path '(tramp-own-remote-path))
-
-(use-package! claude-code-ide
-  :bind ("C-c C-g" . claude-code-ide-menu) ; Set your favorite keybinding
-  :config
-  (claude-code-ide-emacs-tools-setup)) ; Optionally enable Emacs MCP tools
 
 (use-package! caddyfile-mode
   :mode ("Caddyfile\\(?:\\..*\\)?\\'" . caddyfile-mode))
