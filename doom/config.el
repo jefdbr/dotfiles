@@ -53,10 +53,8 @@
       :desc "Resize window" "r" #'doom/window-resize-map)
 
 (setq evil-ex-visual-char-range nil
-      ;evil-ex-complete-emacs-commands nil
       evil-vsplit-window-right t
       evil-split-window-below t
-      ;evil-kill-on-visual-paste nil
       )
 
 (after! projectile
@@ -114,10 +112,10 @@
 
 (after! dired
   (defun taildrop--get-devices ()
-  (split-string
-   (shell-command-to-string
-    "tailscale status --json | jq -r '.Peer[] | select(.Online == true and .TaildropTarget == 1) | .HostName'")
-   "\n" t))
+    (split-string
+     (shell-command-to-string
+      "tailscale status --json | jq -r '.Peer[] | select(.Online == true and .TaildropTarget == 1) | .HostName'")
+     "\n" t))
 
   (defun taildrop-send-file (device)
     (interactive (list (completing-read "Device: " (taildrop--get-devices))))
@@ -154,10 +152,10 @@
                                  device)))
                (when (= (car count-cell) total)
                  (run-at-time 2 nil
-                   (lambda ()
-                     (when-let (win (get-buffer-window "*taildrop*"))
-                       (delete-window win))
-                     (kill-buffer "*taildrop*")))))))))))
+                              (lambda ()
+                                (when-let (win (get-buffer-window "*taildrop*"))
+                                  (delete-window win))
+                                (kill-buffer "*taildrop*")))))))))))
 
   (map! :map dired-mode-map
         :n "C-c t" #'taildrop-send-file))
