@@ -2,22 +2,6 @@
 
 (setq doom-theme 'doom-one)
 
-(load! "stylix-colors")
-
-(after! doom-themes
-  (custom-set-faces!
-    `(default :background ,stylix-base00)
-    `(fringe :background ,stylix-base00)
-    `(line-number :background ,stylix-base00)
-    `(line-number-current-line :background ,stylix-base01)
-    `(region :background ,stylix-base02)
-    `(mode-line :background ,stylix-base01)
-    `(mode-line-inactive :background ,stylix-base00)
-    `(solaire-default-face :background ,stylix-base00)
-    `(solaire-hl-line-face :background ,stylix-base01)
-    `(vertical-border :background ,stylix-base00)
-    `(header-line :background ,stylix-base00)))
-
 (setq doom-font      (font-spec :family "JetBrainsMono Nerd Font" :size 15)
       doom-big-font  (font-spec :family "JetBrainsMono Nerd Font" :size 25))
 
