@@ -47,8 +47,6 @@
 (after! apheleia
   (setq apheleia-remote-algorithm 'local))
 
-(after! lsp-tailwindcss
-  (setq lsp-tailwindcss-major-modes '()))
 
 (after! treesit
   (add-to-list 'treesit-language-source-alist
@@ -87,12 +85,18 @@
     :server-id 'prisma-ls)))
 (add-hook 'prisma-ts-mode-hook #'lsp-deferred)
 
+(after! lsp-tailwindcss
+  (setq lsp-tailwindcss-major-modes '()))
+
 (after! dap-mode
   (require 'dap-gdb nil t)
   (setq dap-gdb-debug-program '("rust-gdb" "-i" "dap")))
 
 (after! lsp-rust
   (require 'dap-gdb nil t))
+
+(after! lsp-pyright
+  (setq lsp-pyright-langserver-command "basedpyright"))
 
 (after! dired
   (defun taildrop--get-devices ()
