@@ -22,6 +22,10 @@
 (map! :leader
       "SPC" #'find-file)
 
+(after! dirvish
+  (setq dirvish-header-line-format
+        '(:left (path free-space))))
+
 (defun doom/window-resize-map ()
   (interactive)
   (let ((map (make-sparse-keymap)))
